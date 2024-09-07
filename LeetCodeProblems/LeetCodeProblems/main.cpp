@@ -2,6 +2,9 @@
 #include <vector>
 #include <unordered_map>
 
+#include "problem.h"
+
+
 std::vector<int> twoSum(std::vector<int>& nums, int target) {
 	std::unordered_map<int, int> mNums;
 
@@ -92,9 +95,12 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 }
 
 int main() {
-	std::vector<int> values{ -11,7,3,2,1,7,-10,11,21,3 };
-	std::vector<int> res = twoSum(values, 11);
+	 std::vector<int> values{ -11,7,3,2,1,7,-10,11,21,3 };
+	 std::vector<int> res = twoSum(values, 11);
+	 
+	 std::cout << "Hello there";
 
-	std::cout << "Hello there";
+	 //Problem<std::vector<int>, std::vector<std::vector<int, int>> twoSum("hello", "there", twoSum);
 
+	 //p1.SetName("Hello there");
 }

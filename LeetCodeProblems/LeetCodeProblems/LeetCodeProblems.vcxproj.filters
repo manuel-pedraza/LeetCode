@@ -13,10 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Base">
+      <UniqueIdentifier>{38b637ba-56e2-4874-befc-67e75476b4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Base">
+      <UniqueIdentifier>{db3b9e1c-ba87-4d0a-aded-07a04f2ab201}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="problem.h">
+      <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
