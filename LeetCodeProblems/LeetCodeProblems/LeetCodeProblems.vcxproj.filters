@@ -24,9 +24,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="property.h">
+      <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="problem.cpp">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="problem.h">
+      <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="information.h">
       <Filter>Fichiers d%27en-tête\Base</Filter>
     </ClInclude>
   </ItemGroup>

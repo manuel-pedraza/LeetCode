@@ -100,6 +100,9 @@ int main() {
 	 
 	 std::cout << "Hello there";
 
+	 Problem p1("Problem", "1");
+	 //Information i1();
+
 	 //Problem<std::vector<int>, std::vector<std::vector<int, int>> twoSum("hello", "there", twoSum);
 
 	 //p1.SetName("Hello there");
