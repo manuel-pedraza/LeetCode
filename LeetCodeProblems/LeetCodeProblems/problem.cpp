@@ -1,18 +1,6 @@
 #include "problem.h"
 
-Problem::Problem(std::string name, std::string description) : sName(name), sDescription(description)
-{
-	std::cout << "This is " << this->sName << " " << this->sDescription << std::endl;
-
-}
-
-Problem::Problem(std::string name, std::string description, Information(*solution)(Information))
-{
-}
-
-Problem::Problem(std::string name, std::string description, Information(*solution)(Information), Information input, Information output)
-{
-}
+Problem::Problem(std::string name, std::string description) : sName(name), sDescription(description) {}
 
 Problem::~Problem()
 {
@@ -20,22 +8,12 @@ Problem::~Problem()
 
 bool Problem::Solve(Information input, Information output)
 {
-	return false;
-}
+	std::cout << "Solve" << std::endl;
 
-bool Problem::Solve()
-{
-	return false;
-}
+	if (ProbSolution == nullptr)
+		return false;
 
-void Problem::SetInputs(Information input)
-{
-}
+	Information outputSol = ProbSolution(input);
 
-void Problem::SetOutputs(Information output)
-{
-}
-
-void Problem::SetSolution(Information(*f)(Information))
-{
+	return outputSol.Compare(output);
 }

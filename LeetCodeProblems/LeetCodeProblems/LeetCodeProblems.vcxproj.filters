@@ -30,12 +30,18 @@
     <ClCompile Include="problem.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
+    <ClCompile Include="problemmanager.cpp">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="problem.h">
+    <ClInclude Include="information.h">
       <Filter>Fichiers d%27en-tête\Base</Filter>
     </ClInclude>
-    <ClInclude Include="information.h">
+    <ClInclude Include="problemmanager.h">
+      <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="problem.h">
       <Filter>Fichiers d%27en-tête\Base</Filter>
     </ClInclude>
   </ItemGroup>

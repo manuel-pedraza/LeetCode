@@ -7,11 +7,21 @@
 
 class Information {
 
+	typedef bool (*Comparator)(Property*, Property*);
+
 public:
 	Information();
+	Information(property_list_type lstTmp);
+	Information(std::vector<Property*> lstTmp);
 	~Information();
+	void ChangePropData(int pos, Property* prop, void (*func)(int, Property*));
+	int GetSize();
+	Property* GetPropByPos(int pos);
 	property_list_type GetList();
-	void AddProperty(std::shared_ptr<Property> prop);
+	bool Compare(Information output);
+	void AddProperty(Property* prop);
+	Comparator PropComparator = nullptr;
+
 
 private:
 	property_list_type list;
@@ -20,6 +30,39 @@ private:
 
 inline Information::Information()
 {
+}
+
+inline Information::Information(property_list_type lstTmp)
+{
+	for (auto i : lstTmp) {
+		list.push_back(i);
+	}
+}
+
+inline Information::Information(std::vector<Property*> lstTmp)
+{
+	for (auto p : lstTmp) {
+		this->AddProperty(p);
+	}
+}
+
+inline void Information::ChangePropData(int pos, Property* prop, void(*func)(int, Property*))
+{
+	if(pos < GetSize())
+		func(pos, prop);
+}
+
+inline int Information::GetSize()
+{
+	return list.size();
+}
+
+inline Property* Information::GetPropByPos(int pos)
+{
+	if (pos < GetSize())
+		return list.at(pos).get();
+	else
+		return nullptr;
 }
 
 inline Information::~Information()
@@ -31,24 +74,38 @@ inline property_list_type Information::GetList()
 	return list;
 }
 
-inline void Information::AddProperty(std::shared_ptr<Property> prop)
+inline bool Information::Compare(Information output)
 {
+	if (GetSize() != output.GetSize() || !PropComparator)
+		return false;
+
+	for (auto lp : list) {
+		for (auto op : output.GetList()) {
+			if (!PropComparator(lp.get(), op.get()))
+				return false;
+		}
+	}
+
+	return true;
+}
+
+inline void Information::AddProperty(Property* prop)
+{
+	std::shared_ptr<Property> shp(prop);
+	list.push_back(shp);
+	
+
 	/*
-	property_list_type.push_back(prop);
+	Property* pTmp = list.at(0).get();
+	TypedProperty<int>* a = dynamic_cast<TypedProperty<int>*>(pTmp);
 
-	Property* p = new TypedProperty<int>("hi", 10);
 
-	std::shared_ptr<Property> p2(p);
-
-	property_list_type.push_back(p2);
-
-	TypedProperty<int>* a = dynamic_cast<TypedProperty<int>*>(property_list_type.at(0).get());
-
+	std::cout << "PROPERTY " << std::endl;
 	if (a)
 		std::cout << "DATA: " << a->GetData() << std::endl;
-
 	*/
-	//property_list_type.push_back(std::shared_ptr<p>().get();
+
+	
 }
 
 #endif // !INFORMATION_H_
