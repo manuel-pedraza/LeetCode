@@ -18,19 +18,22 @@ void ProblemManager::SetOutputs(std::vector<Information> outputs)
 	this->outputs = outputs;
 }
 
-void ProblemManager::SolveAll()
+bool ProblemManager::SolveAll()
 {
-	if (!ValidateLists() || !IsEmpty())
-		return;
+
+	if (!ValidateLists() || !ValidateLists())
+		return false;
 
 	for (int i = 0; i < inputs.size() && i < outputs.size(); i++)
-		this->SolveByIndex(i);
+		if (!this->SolveByIndex(i))
+			return false;
 
+	return true;
 }
 
 bool ProblemManager::SolveByIndex(int index)
 {
-	if (!ValidateLists() || !IsEmpty())
+	if (!ValidateLists() || !ValidateLists())
 		return false;
 
 	return this->problem.Solve(inputs.at(index), outputs.at(index));

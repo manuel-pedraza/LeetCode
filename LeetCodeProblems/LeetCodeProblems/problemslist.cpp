@@ -34,21 +34,12 @@ void ProblemList::AddProblemManager(ProblemManager pm)
 
 bool ProblemList::SolveByName(std::string name)
 {
-	ProblemManager* pm = nullptr;
 
-	for (auto pmTmp : list) {
-		if (pmTmp.GetProblemName() == name) {
-			pm = &pmTmp;
-			break;
-		}
-	}
+	for (auto pmTmp : list)
+		if (pmTmp.GetProblemName() == name) 
+			return pmTmp.SolveAll();
 
-	if (!pm)
-		return false;
-
-	pm->SolveAll();
-	return true;
-
+	return false;
 }
 
 void ProblemList::AddFunction(std::string problemName, Problem::Solution solFunc)

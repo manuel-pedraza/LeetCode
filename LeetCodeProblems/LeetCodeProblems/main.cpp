@@ -8,7 +8,8 @@
 int main() {
 
 	InitializeHighFreqList();
-	std::cout << (highfreqlist.SolveByName("Two Sum") ? "PASSED" : "FAILED") << std::endl;
+	//std::cout << (highfreqlist.SolveByName("Two Sum") ? "PASSED" : "FAILED") << std::endl;
+	std::cout << (highfreqlist.SolveByName("Add Two Numbers") ? "PASSED" : "FAILED") << std::endl;
 
 
 	 //p1.SetInputs(Information(std::vector<Property*>(pvalue1, pvalue2)));

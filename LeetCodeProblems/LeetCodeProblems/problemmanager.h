@@ -11,7 +11,7 @@ public:
 	~ProblemManager();
 	void SetInputs(std::vector<Information> inputs);
 	void SetOutputs(std::vector<Information> outputs);
-	void SolveAll();
+	bool SolveAll();
 	bool SolveByIndex(int index);
 	bool SolveByInformations(Information in, Information out);
 	bool ValidateLists();

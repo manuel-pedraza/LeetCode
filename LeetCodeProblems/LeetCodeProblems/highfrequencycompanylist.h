@@ -14,9 +14,11 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
 
 // Wrappers
 Information twoSumWrapper(Information i);
+Information addTwoNumbersWrapper(Information i);
 
 // Inits
 ProblemManager twoSumInit();
+ProblemManager addTwoNumbersInit();
 
 // Main Init
 void InitializeHighFreqList();
