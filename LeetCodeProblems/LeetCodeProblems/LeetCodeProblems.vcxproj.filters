@@ -33,6 +33,9 @@
     <ClCompile Include="problemmanager.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
+    <ClCompile Include="problemslist.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="information.h">
@@ -42,6 +45,9 @@
       <Filter>Fichiers d%27en-tête\Base</Filter>
     </ClInclude>
     <ClInclude Include="problem.h">
+      <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="problemslist.h">
       <Filter>Fichiers d%27en-tête\Base</Filter>
     </ClInclude>
   </ItemGroup>

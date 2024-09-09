@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="problem.cpp" />
     <ClCompile Include="problemmanager.cpp" />
+    <ClCompile Include="problemslist.cpp" />
     <ClCompile Include="property.h" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="information.h" />
     <ClInclude Include="problem.h" />
     <ClInclude Include="problemmanager.h" />
+    <ClInclude Include="problemslist.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

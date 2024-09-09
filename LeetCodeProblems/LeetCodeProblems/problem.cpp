@@ -8,8 +8,6 @@ Problem::~Problem()
 
 bool Problem::Solve(Information input, Information output)
 {
-	std::cout << "Solve" << std::endl;
-
 	if (ProbSolution == nullptr)
 		return false;
 

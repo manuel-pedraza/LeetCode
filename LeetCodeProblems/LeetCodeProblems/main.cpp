@@ -4,6 +4,7 @@
 
 #include "problem.h"
 #include "property.h"
+#include "problemmanager.h"
 
 std::vector<int> twoSum(std::vector<int>& nums, int target) {
 	std::unordered_map<int, int> mNums;
@@ -97,8 +98,6 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 int main() {
 	 std::vector<int> values{ -11,7,3,2,1,7,-10,11,21,3 };
 	 std::vector<int> res = twoSum(values, 11);
-	 
-	 std::cout << "Hello there";
 
 	 Property* pvalue1 = new TypedProperty<std::vector<int>>("values", values);
 	 Property* pvalue2 = new TypedProperty<int>("v2", 11);
@@ -107,7 +106,6 @@ int main() {
 
 	 p1.ProbSolution = [](Information i) { 
 		
-		 std::cout << "Entered Lambda Func" << std::endl;
 		 // Destruct Informations
 		 TypedProperty<std::vector<int>>* tpValues = dynamic_cast<TypedProperty<std::vector<int>>*>(i.GetPropByPos(0));
 		 TypedProperty<int>* tpNumber = dynamic_cast<TypedProperty<int>*>(i.GetPropByPos(1));
@@ -115,7 +113,6 @@ int main() {
 		 // Validate Informations
 		 if (!(tpValues && tpNumber)) return Information();
 
-		 std::cout << "Passed Validations" << std::endl;
 
 		 // Destruct true Informations
 		 std::vector<int> vals = tpValues->GetData();
@@ -164,9 +161,12 @@ int main() {
 	 Information inf2;
 	 inf2.AddProperty(new TypedProperty<std::vector<int>>("v2", std::vector<int>{6, 8}));
 
-	 bool hasPassed = p1.Solve(inf1, inf2);
+	 ProblemManager pm(p1);
+	 bool hasPassed = pm.SolveByInformations(inf1, inf2);
 
 	 std::cout << (hasPassed ? "LETS GOOO" : "BAAAAAD") << std::endl;
+
+	 
 
 	 //p1.SetInputs(Information(std::vector<Property*>(pvalue1, pvalue2)));
 	 //Information i1();

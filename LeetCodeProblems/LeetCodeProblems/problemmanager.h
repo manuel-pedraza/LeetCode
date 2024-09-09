@@ -9,12 +9,16 @@ class ProblemManager {
 public:
 	ProblemManager(Problem prob);
 	~ProblemManager();
-	void SetInput(Information input);
-	void SetOutput(Information output);
+	void SetInputs(std::vector<Information> inputs);
+	void SetOutputs(std::vector<Information> outputs);
+	void SolveAll();
+	bool SolveByIndex(int index);
+	bool SolveByInformations(Information in, Information out);
+	bool ValidateLists();
+	bool IsEmpty();
+	std::string GetProblemName();
 private:
 	Problem problem;
-	Information inputProps;
-	Information outputProps;
 	std::vector<Information> inputs;
 	std::vector<Information> outputs;
 };

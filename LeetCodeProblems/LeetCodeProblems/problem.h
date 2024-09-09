@@ -14,10 +14,10 @@ public:
     ~Problem();
     bool Solve(Information input, Information output);
     Solution ProbSolution = nullptr;
-
-private:
     const std::string sName;
     const std::string sDescription;
+
+private:
 };
 
 #endif // !PROBLEM_H__
