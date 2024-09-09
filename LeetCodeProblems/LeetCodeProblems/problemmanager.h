@@ -17,6 +17,7 @@ public:
 	bool ValidateLists();
 	bool IsEmpty();
 	std::string GetProblemName();
+	void SetSolution(Problem::Solution func);
 private:
 	Problem problem;
 	std::vector<Information> inputs;

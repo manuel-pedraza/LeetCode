@@ -6,10 +6,8 @@
 
 class Problem {
 
-protected:
-    typedef Information (*Solution)(Information);
-
 public:
+    typedef Information (*Solution)(Information);
     Problem(std::string name, std::string description);
     ~Problem();
     bool Solve(Information input, Information output);
@@ -17,7 +15,6 @@ public:
     const std::string sName;
     const std::string sDescription;
 
-private:
 };
 
 #endif // !PROBLEM_H__

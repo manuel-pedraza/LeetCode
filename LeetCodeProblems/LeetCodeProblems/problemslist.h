@@ -2,7 +2,9 @@
 #define PROBLEM_LIST_H__
 
 #include <iostream>
+#include <map>
 #include "problemmanager.h"
+#include "problem.h"
 
 class ProblemList {
 
@@ -11,7 +13,9 @@ public:
 	~ProblemList();
 	void SolveAll();
 	bool SolveByName(std::string name);
+	void AddFunction(std::string problemName, Problem::Solution solFunc);
 private:
+	std::map<std::string, Problem::Solution> functionList;
 	std::vector<ProblemManager> list;
 };
 

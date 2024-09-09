@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="blind75.cpp" />
+    <ClCompile Include="highfrequencycompanylist.cpp" />
     <ClCompile Include="problem.cpp" />
     <ClCompile Include="problemmanager.cpp" />
     <ClCompile Include="problemslist.cpp" />
@@ -146,10 +148,14 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="blind75.h" />
+    <ClInclude Include="highfrequencycompanylist.h" />
     <ClInclude Include="information.h" />
+    <ClInclude Include="neetcode150.h" />
     <ClInclude Include="problem.h" />
     <ClInclude Include="problemmanager.h" />
     <ClInclude Include="problemslist.h" />
+    <ClInclude Include="structs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

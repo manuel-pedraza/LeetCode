@@ -19,6 +19,15 @@
     <Filter Include="Fichiers sources\Base">
       <UniqueIdentifier>{db3b9e1c-ba87-4d0a-aded-07a04f2ab201}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\LeetCodeFunctions">
+      <UniqueIdentifier>{61386544-f513-42cc-b57a-3a17fa18f866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\LeetCodeFunctions">
+      <UniqueIdentifier>{c8a5e218-37d3-475f-b7eb-8c12e28245b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Structs">
+      <UniqueIdentifier>{ab9c8a3c-26c0-466a-a15b-74960575100c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -34,7 +43,13 @@
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
     <ClCompile Include="problemslist.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="blind75.cpp">
+      <Filter>Fichiers sources\LeetCodeFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="highfrequencycompanylist.cpp">
+      <Filter>Fichiers sources\LeetCodeFunctions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +64,18 @@
     </ClInclude>
     <ClInclude Include="problemslist.h">
       <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="blind75.h">
+      <Filter>Fichiers d%27en-tête\LeetCodeFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="neetcode150.h">
+      <Filter>Fichiers d%27en-tête\LeetCodeFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="highfrequencycompanylist.h">
+      <Filter>Fichiers d%27en-tête\LeetCodeFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>Fichiers d%27en-tête\Structs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

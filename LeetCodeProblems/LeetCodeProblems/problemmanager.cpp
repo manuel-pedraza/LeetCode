@@ -40,7 +40,7 @@ bool ProblemManager::SolveByIndex(int index)
 bool ProblemManager::SolveByInformations(Information in, Information out)
 {
 	if (!ValidateLists() || !IsEmpty())
-		return;
+		return false;
 
 	return this->problem.Solve(in, out);
 
@@ -59,4 +59,9 @@ bool ProblemManager::IsEmpty()
 std::string ProblemManager::GetProblemName()
 {
 	return problem.sName;
+}
+
+void ProblemManager::SetSolution(Problem::Solution func)
+{
+	problem.ProbSolution = func;
 }
