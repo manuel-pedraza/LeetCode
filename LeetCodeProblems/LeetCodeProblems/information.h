@@ -67,6 +67,9 @@ inline Property* Information::GetPropByPos(int pos)
 
 inline Information::~Information()
 {
+	while (!list.empty()){
+		list.pop_back();
+	}
 }
 
 inline property_list_type Information::GetList()

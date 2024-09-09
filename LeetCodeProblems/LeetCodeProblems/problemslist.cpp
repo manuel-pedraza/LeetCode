@@ -1,12 +1,23 @@
 #include "problemslist.h"
 #include "problemmanager.h"
 
-ProblemList::ProblemList(ProblemManager pm)
+ProblemList::ProblemList()
 {
 }
 
 ProblemList::~ProblemList()
 {
+	
+}
+
+bool ProblemList::Init()
+{
+	if (bHasBeenInitialized)
+		return false;
+
+	bHasBeenInitialized = true;
+
+	return true;
 }
 
 void ProblemList::SolveAll()
@@ -14,6 +25,11 @@ void ProblemList::SolveAll()
 	for (auto pmTmp : list) {
 		pmTmp.SolveAll();
 	}
+}
+
+void ProblemList::AddProblemManager(ProblemManager pm)
+{
+	list.push_back(pm);
 }
 
 bool ProblemList::SolveByName(std::string name)

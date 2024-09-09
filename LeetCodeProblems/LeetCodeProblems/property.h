@@ -19,6 +19,7 @@ public:
     TypedProperty(const std::string& name, const T& data) : m_name(name), m_data(data) {};
     T GetData();
     void SetData(T data);
+    TypedProperty<T>* SetDataAndReturn(T data);
     bool Compare(TypedProperty tp);
 private:
     std::string m_name;
@@ -36,6 +37,12 @@ template<typename T>
 inline void TypedProperty<T>::SetData(T data)
 {
     m_data = data;
+}
+
+template<typename T>
+inline TypedProperty<T>* TypedProperty<T>::SetDataAndReturn(T data)
+{
+    return new TypedProperty<T>(std::string(m_name), data);
 }
 
 template<typename T>
