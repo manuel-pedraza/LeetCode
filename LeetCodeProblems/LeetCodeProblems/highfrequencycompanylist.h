@@ -5,9 +5,6 @@
 #include "structs.h"
 #include "problemslist.h"
 
-// Initializer
-void InitializeHighFreqList();
-
 // Function List
 std::vector<int> twoSum(std::vector<int>& nums, int target);
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
