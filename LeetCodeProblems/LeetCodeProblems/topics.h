@@ -1,7 +1,7 @@
 #ifndef TOPICS_H__
 #define TOPICS_H__
 
-enum Topics {
+enum class Topics {
 	Array,
 	String,
 	Hash_Table,

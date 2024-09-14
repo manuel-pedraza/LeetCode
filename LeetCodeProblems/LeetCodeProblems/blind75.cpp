@@ -1,5 +1,6 @@
 #include "blind75.h"
 #include <numeric>
+#include "function.h"
 
 ProblemList blind75list;
 
@@ -87,7 +88,10 @@ Information mergeAlternatelyWrapper(Information input)
 		std::string compOut1 = out1->GetData();
 		std::string compOut2 = out2->GetData();
 
-		return compOut1 == compOut2;
+		const bool hasPassed = compOut1 == compOut2;
+		showAssertionResult(hasPassed, compOut1, compOut2);
+
+		return hasPassed;
 	};
 
 	return output;
@@ -127,7 +131,11 @@ Information greatestCommonDivisorStringsWrapper(Information input)
 		std::string compOut1 = out1->GetData();
 		std::string compOut2 = out2->GetData();
 
-		return compOut1 == compOut2;
+		const bool hasPassed = compOut1 == compOut2;
+
+		showAssertionResult(hasPassed, compOut1, compOut2);
+
+		return hasPassed;
 	};
 
 	return output;
@@ -137,7 +145,8 @@ ProblemManager mergeAlternatelyInit()
 {
 	ProblemManager mMergeAlternately(Problem(
 		"Merge Strings Alternately",
-		"You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.\n\r Return the merged string."
+		"You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.\n\r Return the merged string.",
+		Difficulty::Easy
 	));
 
 	mMergeAlternately.SetSolution(mergeAlternatelyWrapper);
@@ -169,7 +178,8 @@ ProblemManager greatestCommonDivisorStringsInit()
 {
 	ProblemManager mGreatestCommonDivisorStringsInit(Problem(
 		"Greatest Common Divisor of Strings",
-		"You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.\n\r Return the merged string."
+		"You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.\n\r Return the merged string.",
+		Difficulty::Easy
 	));
 
 	mGreatestCommonDivisorStringsInit.SetSolution(greatestCommonDivisorStringsWrapper);
@@ -193,6 +203,9 @@ ProblemManager greatestCommonDivisorStringsInit()
 			Information(std::vector<Property*>{new TypedProperty<std::string>(str1, "TAUXXTAUXXTAUXXTAUXXTAUXX"), new TypedProperty<std::string>(str2, "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX")}),
 			Information(std::vector<Property*>{new TypedProperty<std::string>(str1, "ABCDEF"), new TypedProperty<std::string>(str2, "ABC")}),
 			Information(std::vector<Property*>{new TypedProperty<std::string>(str1, "ABABABAB"), new TypedProperty<std::string>(str2, "ABAB")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str1, "MANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAW"), new TypedProperty<std::string>(str2, "MANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAW")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str1, "MNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNM"), new TypedProperty<std::string>(str2, "MNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNM")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str1, "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), new TypedProperty<std::string>(str2, "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ")}),
 			Information(std::vector<Property*>{new TypedProperty<std::string>(str1, "AAAAAAAAA"), new TypedProperty<std::string>(str2, "AAACCC")}),
 	});
 
@@ -207,7 +220,10 @@ ProblemManager greatestCommonDivisorStringsInit()
 			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "TAUXX") }),
 			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "") }),
 			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "ABAB") }),
-			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "MANSDOAWMANSDOAW") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "MNNWONOWNNMMNNWONOWNNM") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "ALWAYS FAILED TEST") }),
 	});
 
 	return mGreatestCommonDivisorStringsInit;

@@ -22,6 +22,8 @@ private:
 	Problem problem;
 	std::vector<Information> inputs;
 	std::vector<Information> outputs;
+
+	
 };
 
 #endif // !PROBLEM_MANAGER_H__

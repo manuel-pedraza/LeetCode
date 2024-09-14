@@ -1,4 +1,6 @@
 #include "problemmanager.h"
+#include <stdlib.h>
+#include "function.h"
 
 ProblemManager::ProblemManager(Problem prob) : problem(prob) {
 
@@ -24,9 +26,14 @@ bool ProblemManager::SolveAll()
 	if (!ValidateLists() || !ValidateLists())
 		return false;
 
-	for (int i = 0; i < inputs.size() && i < outputs.size(); i++)
+	std::cout << "Starting Solving " << inputs.size() << " Problem(s)" << std::endl;
+	for (int i = 0; i < inputs.size() && i < outputs.size(); i++) {
+		
+		showIndexAndTotal(i, inputs.size());
+
 		if (!this->SolveByIndex(i))
 			return false;
+	}
 
 	return true;
 }

@@ -1,6 +1,6 @@
 #include "problem.h"
 
-Problem::Problem(std::string name, std::string description) : sName(name), sDescription(description) {}
+Problem::Problem(std::string name, std::string description, Difficulty diff) : sName(name), sDescription(description), difficulty(diff) {}
 
 Problem::~Problem()
 {

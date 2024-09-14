@@ -188,7 +188,8 @@ Information addTwoNumbersWrapper(Information i)
 ProblemManager twoSumInit() {
 	ProblemManager mTwoSum(Problem(
 		"Two Sum",
-		"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\r may assume that each input would have exactly one solution, and you may not use the same element twice.\n\rYou can return the answer in any order."
+		"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\r may assume that each input would have exactly one solution, and you may not use the same element twice.\n\rYou can return the answer in any order.",
+		Difficulty::Easy
 	));
 
 	mTwoSum.SetSolution(twoSumWrapper);
@@ -224,7 +225,8 @@ ProblemManager twoSumInit() {
 ProblemManager addTwoNumbersInit()
 {
 	ProblemManager mAddTwoNumbers(Problem(
-		"Add Two Numbers", "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\n\rYou may assume the two numbers do not contain any leading zero, except the number 0 itself."
+		"Add Two Numbers", "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\n\rYou may assume the two numbers do not contain any leading zero, except the number 0 itself.",
+		Difficulty::Easy
 	));
 
 	mAddTwoNumbers.SetSolution(addTwoNumbersWrapper);
@@ -240,21 +242,21 @@ ProblemManager addTwoNumbersInit()
 	mAddTwoNumbers.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{
 			new TypedProperty<ListNode*>(listNode1, new ListNode(2, new ListNode(4, new ListNode(3)))),
-			new TypedProperty<ListNode*>(listNode2, new ListNode(5, new ListNode(6, new ListNode(4))))
+				new TypedProperty<ListNode*>(listNode2, new ListNode(5, new ListNode(6, new ListNode(4))))
 		}),
 
-		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(listNode1, new ListNode(0)), new TypedProperty<ListNode*>(listNode2, new ListNode(0))}),
+			Information(std::vector<Property*>{ new TypedProperty<ListNode*>(listNode1, new ListNode(0)), new TypedProperty<ListNode*>(listNode2, new ListNode(0))}),
 
-		Information(std::vector<Property*>{
-			new TypedProperty<ListNode*>(listNode1, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))))),
-			new TypedProperty<ListNode*>(listNode2, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))
-		}),
+				Information(std::vector<Property*>{
+				new TypedProperty<ListNode*>(listNode1, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))))),
+					new TypedProperty<ListNode*>(listNode2, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))
+			}),
 	});
 
 	mAddTwoNumbers.SetOutputs(std::vector<Information> {
 		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(7, new ListNode(0, new ListNode(8)))) }),
-		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(0)) }),
-		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(8, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(0, new ListNode(0, new ListNode(0, new ListNode(1))))))))) }),
+			Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(0)) }),
+			Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(8, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(0, new ListNode(0, new ListNode(0, new ListNode(1))))))))) }),
 	});
 
 	return mAddTwoNumbers;

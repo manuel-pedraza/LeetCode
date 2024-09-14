@@ -34,7 +34,7 @@ void ProblemList::AddProblemManager(ProblemManager pm)
 
 bool ProblemList::SolveByName(std::string name)
 {
-
+	std::cout << "Solving: " + name << std::endl;
 	for (auto pmTmp : list)
 		if (pmTmp.GetProblemName() == name) 
 			return pmTmp.SolveAll();

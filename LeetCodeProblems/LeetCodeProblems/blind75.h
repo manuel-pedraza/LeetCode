@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_H_INCLUDED
-#define FUNCTIONS_H_INCLUDED
+#ifndef BLIND75_H_INCLUDED
+#define BLIND75_H_INCLUDED
 
 #include <vector>
 #include "structs.h"
@@ -23,4 +23,4 @@ void InitializeBlind75List();
 
 extern ProblemList blind75list;
 
-#endif
+#endif // !BLIND75
