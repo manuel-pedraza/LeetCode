@@ -7,12 +7,15 @@
 
 // Function List
 std::string mergeAlternately(std::string word1, std::string word2);
+std::string greatestCommonDivisorStrings(std::string str1, std::string str2);
 
 // Wrappers
 Information mergeAlternatelyWrapper(Information input);
+Information greatestCommonDivisorStringsWrapper(Information input);
 
 // Inits
 ProblemManager mergeAlternatelyInit();
+ProblemManager greatestCommonDivisorStringsInit();
 
 // Main Init
 void InitializeBlind75List();

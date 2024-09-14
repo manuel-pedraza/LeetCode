@@ -12,7 +12,8 @@ int main() {
 	InitializeBlind75List();
 	//std::cout << (highfreqlist.SolveByName("Two Sum") ? "PASSED" : "FAILED") << std::endl;
 	//std::cout << (highfreqlist.SolveByName("Add Two Numbers") ? "PASSED" : "FAILED") << std::endl;
-	std::cout << (blind75list.SolveByName("Merge Strings Alternately") ? "PASSED" : "FAILED") << std::endl;
+	//std::cout << (blind75list.SolveByName("Merge Strings Alternately") ? "PASSED" : "FAILED") << std::endl;
+	std::cout << (blind75list.SolveByName("Greatest Common Divisor of Strings") ? "PASSED" : "FAILED") << std::endl;
 
 
 	 //p1.SetInputs(Information(std::vector<Property*>(pvalue1, pvalue2)));
