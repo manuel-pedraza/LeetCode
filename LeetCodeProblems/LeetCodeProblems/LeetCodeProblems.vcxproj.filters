@@ -54,6 +54,9 @@
     <ClCompile Include="highfrequencycompanylist.cpp">
       <Filter>Fichiers sources\LeetCodeFunctions</Filter>
     </ClCompile>
+    <ClCompile Include="difficulty.h">
+      <Filter>Fichiers d%27en-tête\Enums</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="information.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="structs.h">
       <Filter>Fichiers d%27en-tête\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="topics.h">
+      <Filter>Fichiers d%27en-tête\Enums</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

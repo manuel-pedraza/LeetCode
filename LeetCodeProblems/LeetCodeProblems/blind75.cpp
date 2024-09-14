@@ -26,31 +26,31 @@ std::string mergeAlternately(std::string word1, std::string word2)
 
 std::string greatestCommonDivisorStrings(std::string str1, std::string str2)
 {
-	std::string greatestDivisorStr = "";
 	if (str1 == str2)
 		return str1;
 	else if (str1 + str2 != str2 + str1)
 		return "";
+	else {
+		std::string greatestDivisorStr = "";
+		const std::string smallestString = str1.length() > str2.length() ? str2 : str1;
+		const std::string largestString = str1 == smallestString ? str2 : str1;
 
-	const std::string smallestString = str1.length() > str2.length() ? str2 : str1;
-	const std::string largestString = str1 == smallestString ? str2 : str1;
+		if (largestString.length() % smallestString.length() == 0)
+			return smallestString;
 
-	if (largestString.length() % smallestString.length() == 0)
-		return smallestString;
-
-
-	// Find GCD of two numbers
-	// Find Minimum of a and b
-	int result = smallestString.length();
-	while (result > 0) {
-		if (smallestString.length() % result == 0 && largestString.length() % result == 0) {
-			break;
+		// Find GCD of two numbers
+		// Find Minimum of a and b
+		int result = smallestString.length();
+		while (result > 0) {
+			if (smallestString.length() % result == 0 && largestString.length() % result == 0) {
+				break;
+			}
+			result--;
 		}
-		result--;
-	}
 
-	// Return gcd of a and b
-	return smallestString.substr(0, result);
+		// Return gcd of a and b
+		return smallestString.substr(0, result);
+	}
 }
 
 Information mergeAlternatelyWrapper(Information input)
