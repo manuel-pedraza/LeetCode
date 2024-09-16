@@ -18,6 +18,7 @@ public:
 	bool IsEmpty();
 	std::string GetProblemName();
 	void SetSolution(Problem::Solution func);
+	Difficulty GetProblemDifficulty();
 private:
 	Problem problem;
 	std::vector<Information> inputs;

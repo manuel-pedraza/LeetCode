@@ -1,4 +1,4 @@
-#include "function.h"
+#include "functions.h"
 #include <stdlib.h>
 #include <conio.h>
 #include <stdio.h>
@@ -29,4 +29,21 @@ void showAssertionIndexAndTotal(bool passed, int index, int total)
 void showIndexAndTotal(int index, int total)
 {
 	std::cout << "	" << index + 1 << "/" << total;
+}
+
+void showProblemDifficulty(Difficulty diff)
+{
+	switch (diff){
+		case Difficulty::Easy:
+			std::cout << " \033[42m\033[30mEasy";
+			break;
+		case Difficulty::Medium:
+			std::cout << " \033[43m\033[30mMedium";
+			break;
+		case Difficulty::Hard:
+			std::cout << " \033[41m\033[30mEasy";
+			break;
+	}
+
+	std::cout << "\033[49m\033[37m ";
 }

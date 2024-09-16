@@ -1,5 +1,6 @@
 #include "problemslist.h"
 #include "problemmanager.h"
+#include "functions.h"
 
 ProblemList::ProblemList()
 {
@@ -34,10 +35,14 @@ void ProblemList::AddProblemManager(ProblemManager pm)
 
 bool ProblemList::SolveByName(std::string name)
 {
-	std::cout << "Solving: " + name << std::endl;
+	
 	for (auto pmTmp : list)
-		if (pmTmp.GetProblemName() == name) 
+		if (pmTmp.GetProblemName() == name) {
+			std::cout << "Solving: " + name << " | Difficulty: ";
+			showProblemDifficulty(pmTmp.GetProblemDifficulty());
+			std::cout << "" << std::endl;
 			return pmTmp.SolveAll();
+		}
 
 	return false;
 }

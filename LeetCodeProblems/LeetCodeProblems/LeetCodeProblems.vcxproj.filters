@@ -57,7 +57,7 @@
     <ClCompile Include="difficulty.h">
       <Filter>Fichiers d%27en-tête\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="function.cpp">
+    <ClCompile Include="functions.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,7 +89,7 @@
     <ClInclude Include="topics.h">
       <Filter>Fichiers d%27en-tête\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="function.h">
+    <ClInclude Include="functions.h">
       <Filter>Fichiers d%27en-tête\Base</Filter>
     </ClInclude>
   </ItemGroup>

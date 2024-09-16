@@ -1,6 +1,6 @@
 #include "blind75.h"
 #include <numeric>
-#include "function.h"
+#include "functions.h"
 
 ProblemList blind75list;
 

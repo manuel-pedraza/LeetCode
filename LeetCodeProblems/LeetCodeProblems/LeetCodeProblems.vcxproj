@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="blind75.cpp" />
     <ClCompile Include="difficulty.h" />
-    <ClCompile Include="function.cpp" />
+    <ClCompile Include="functions.cpp" />
     <ClCompile Include="highfrequencycompanylist.cpp" />
     <ClCompile Include="problem.cpp" />
     <ClCompile Include="problemmanager.cpp" />
@@ -151,7 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blind75.h" />
-    <ClInclude Include="function.h" />
+    <ClInclude Include="functions.h" />
     <ClInclude Include="topics.h" />
     <ClInclude Include="highfrequencycompanylist.h" />
     <ClInclude Include="information.h" />

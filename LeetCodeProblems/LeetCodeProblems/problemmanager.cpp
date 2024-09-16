@@ -1,6 +1,6 @@
 #include "problemmanager.h"
 #include <stdlib.h>
-#include "function.h"
+#include "functions.h"
 
 ProblemManager::ProblemManager(Problem prob) : problem(prob) {
 
@@ -74,4 +74,9 @@ std::string ProblemManager::GetProblemName()
 void ProblemManager::SetSolution(Problem::Solution func)
 {
 	problem.ProbSolution = func;
+}
+
+Difficulty ProblemManager::GetProblemDifficulty()
+{
+	return problem.difficulty;
 }
