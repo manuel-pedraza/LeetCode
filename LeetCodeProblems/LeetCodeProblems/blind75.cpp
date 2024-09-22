@@ -54,6 +54,11 @@ std::string greatestCommonDivisorStrings(std::string str1, std::string str2)
 	}
 }
 
+std::vector<bool> kidsWithTheGreatestNumberOfCandies(std::vector<int>& candies, int extraCandies)
+{
+	return std::vector<bool>();
+}
+
 Information mergeAlternatelyWrapper(Information input)
 {
 	// Destruct Informations
@@ -136,6 +141,54 @@ Information greatestCommonDivisorStringsWrapper(Information input)
 		showAssertionResult(hasPassed, compOut1, compOut2);
 
 		return hasPassed;
+	};
+
+	return output;
+}
+
+Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input)
+{
+	// Destruct Informations
+	TypedProperty<std::vector<int>>* tpListNode1 = dynamic_cast<TypedProperty<std::vector<int>>*>(input.GetPropByPos(0));
+	TypedProperty<int>* tpListNode2 = dynamic_cast<TypedProperty<int>*>(input.GetPropByPos(1));
+
+	// Validate Informations
+	if (!(tpListNode1 && tpListNode2)) return Information();
+
+	// Destruct true Informations
+	std::vector<int> ln1 = tpListNode1->GetData();
+	int ln2 = tpListNode2->GetData();
+
+	// Apply Desired function
+	std::vector<bool> results = kidsWithTheGreatestNumberOfCandies(ln1, ln2);
+
+	// Wrap result
+	Property* out = new TypedProperty<std::vector<bool>>("output", results);
+	Information output;
+	output.AddProperty(out);
+
+	// Set Prop Comparator
+	output.PropComparator = [](Property* p1, Property* p2) {
+
+		// Destruct Informations
+		TypedProperty<std::vector<int>>* out1 = dynamic_cast<TypedProperty<std::vector<int>>*>(p1);
+		TypedProperty<std::vector<int>>* out2 = dynamic_cast<TypedProperty<std::vector<int>>*>(p2);
+
+		// Validate Informations
+		if (!(out1 && out2)) return false;
+
+		std::vector<int> compOut1 = out1->GetData();
+		std::vector<int> compOut2 = out2->GetData();
+
+		if (compOut1.size() != compOut2.size()) return false;
+
+		for (int i = 0; i < compOut1.size() && i < compOut2.size(); i++) {
+			if (compOut1.at(i) != compOut2.at(i))
+				return false;
+
+		}
+
+		return true;
 	};
 
 	return output;
@@ -227,6 +280,39 @@ ProblemManager greatestCommonDivisorStringsInit()
 	});
 
 	return mGreatestCommonDivisorStringsInit;
+}
+
+ProblemManager kidsWithTheGreatestNumberOfCandiesInit()
+{
+	ProblemManager mKidsWithTheGreatestNumberOfCandies(Problem(
+		"Merge Strings Alternately",
+		"There are n kids with candies. You are given an integer array candies, where each candies[i] represents the number of candies the ith kid has, and an integer extraCandies, denoting the number of extra candies that you have.\n\rReturn a boolean array result of length n, where result[i] is true if, after giving the ith kid all the extraCandies, they will have the greatest number of candies among all the kids, or false otherwise.\n\rNote that multiple kids can have the greatest number of candies.",
+		Difficulty::Easy
+	));
+
+	mKidsWithTheGreatestNumberOfCandies.SetSolution(mergeAlternatelyWrapper);
+
+	// Set Informations 
+	// Input
+	const std::string candies = "candies";
+	const std::string extraCandies = "extraCandies";
+
+	// Output
+	const std::string output = "boolsArray";
+
+	mKidsWithTheGreatestNumberOfCandies.SetInputs(std::vector<Information> {
+		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{2, 3, 5, 1, 3}), new TypedProperty<int>(extraCandies, 3)}),
+		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{4, 2, 1, 1, 2}), new TypedProperty<int>(extraCandies, 1)}),
+		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{12, 1, 12}), new TypedProperty<int>(extraCandies, 10)}),
+	});
+
+	mKidsWithTheGreatestNumberOfCandies.SetOutputs(std::vector<Information> {
+		Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, true, true, false, true}) }),
+		Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, false, false, false, false}) }),
+		Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, false, true}) }),
+	});
+
+	return mKidsWithTheGreatestNumberOfCandies;
 }
 
 void InitializeBlind75List()

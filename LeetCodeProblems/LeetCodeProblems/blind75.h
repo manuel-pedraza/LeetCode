@@ -8,14 +8,17 @@
 // Function List
 std::string mergeAlternately(std::string word1, std::string word2);
 std::string greatestCommonDivisorStrings(std::string str1, std::string str2);
+std::vector<bool> kidsWithTheGreatestNumberOfCandies(std::vector<int>& candies, int extraCandies);
 
 // Wrappers
 Information mergeAlternatelyWrapper(Information input);
 Information greatestCommonDivisorStringsWrapper(Information input);
+Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input);
 
 // Inits
 ProblemManager mergeAlternatelyInit();
 ProblemManager greatestCommonDivisorStringsInit();
+ProblemManager kidsWithTheGreatestNumberOfCandiesInit();
 
 // Main Init
 void InitializeBlind75List();
