@@ -21,6 +21,9 @@ void showAssertionResult(bool passed, std::string output, std::string expected)
 
 }
 
+
+
+
 void showAssertionIndexAndTotal(bool passed, int index, int total)
 {
 	std::cout << "	" << index + 1 << "/" << total;

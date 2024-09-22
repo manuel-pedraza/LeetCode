@@ -1,6 +1,8 @@
 #include "blind75.h"
 #include <numeric>
 #include "functions.h"
+#include <algorithm>
+#include <iostream>
 
 ProblemList blind75list;
 
@@ -56,7 +58,13 @@ std::string greatestCommonDivisorStrings(std::string str1, std::string str2)
 
 std::vector<bool> kidsWithTheGreatestNumberOfCandies(std::vector<int>& candies, int extraCandies)
 {
-	return std::vector<bool>();
+	int highestNumber = *std::max_element(candies.begin(), candies.end());
+	std::vector<bool> lstValidations;
+
+	for (int c : candies) 
+		lstValidations.push_back(c + extraCandies >= highestNumber);
+
+	return lstValidations;
 }
 
 Information mergeAlternatelyWrapper(Information input)
@@ -171,24 +179,29 @@ Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input)
 	output.PropComparator = [](Property* p1, Property* p2) {
 
 		// Destruct Informations
-		TypedProperty<std::vector<int>>* out1 = dynamic_cast<TypedProperty<std::vector<int>>*>(p1);
-		TypedProperty<std::vector<int>>* out2 = dynamic_cast<TypedProperty<std::vector<int>>*>(p2);
+		TypedProperty<std::vector<bool>>* out1 = dynamic_cast<TypedProperty<std::vector<bool>>*>(p1);
+		TypedProperty<std::vector<bool>>* out2 = dynamic_cast<TypedProperty<std::vector<bool>>*>(p2);
 
 		// Validate Informations
 		if (!(out1 && out2)) return false;
 
-		std::vector<int> compOut1 = out1->GetData();
-		std::vector<int> compOut2 = out2->GetData();
+		std::vector<bool> compOut1 = out1->GetData();
+		std::vector<bool> compOut2 = out2->GetData();
 
 		if (compOut1.size() != compOut2.size()) return false;
 
+		bool hasPassed = true;
+
 		for (int i = 0; i < compOut1.size() && i < compOut2.size(); i++) {
-			if (compOut1.at(i) != compOut2.at(i))
-				return false;
+			if (compOut1.at(i) != compOut2.at(i)) {
+				hasPassed = false;
+				break;
+			}
 
 		}
 
-		return true;
+		showAssertionResult<bool>(hasPassed, compOut1, compOut2);
+		return hasPassed;
 	};
 
 	return output;
@@ -285,12 +298,12 @@ ProblemManager greatestCommonDivisorStringsInit()
 ProblemManager kidsWithTheGreatestNumberOfCandiesInit()
 {
 	ProblemManager mKidsWithTheGreatestNumberOfCandies(Problem(
-		"Merge Strings Alternately",
+		"Kids With the Greatest Number of Candies",
 		"There are n kids with candies. You are given an integer array candies, where each candies[i] represents the number of candies the ith kid has, and an integer extraCandies, denoting the number of extra candies that you have.\n\rReturn a boolean array result of length n, where result[i] is true if, after giving the ith kid all the extraCandies, they will have the greatest number of candies among all the kids, or false otherwise.\n\rNote that multiple kids can have the greatest number of candies.",
 		Difficulty::Easy
 	));
 
-	mKidsWithTheGreatestNumberOfCandies.SetSolution(mergeAlternatelyWrapper);
+	mKidsWithTheGreatestNumberOfCandies.SetSolution(kidsWithTheGreatestNumberOfCandiesWrapper);
 
 	// Set Informations 
 	// Input
@@ -323,4 +336,5 @@ void InitializeBlind75List()
 	// Initialize Problems Managers
 	blind75list.AddProblemManager(mergeAlternatelyInit());
 	blind75list.AddProblemManager(greatestCommonDivisorStringsInit());
+	blind75list.AddProblemManager(kidsWithTheGreatestNumberOfCandiesInit());
 }
