@@ -7,6 +7,7 @@
 
 // Function List
 void showAssertionResult(bool passed, std::string output, std::string expected);
+void showAssertionResult(bool passed, bool output, bool expected);
 void showAssertionIndexAndTotal(bool passed, int index, int total);
 void showIndexAndTotal(int index, int total);
 void showProblemDifficulty(Difficulty diff);

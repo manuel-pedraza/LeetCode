@@ -21,6 +21,15 @@ void showAssertionResult(bool passed, std::string output, std::string expected)
 
 }
 
+void showAssertionResult(bool passed, bool output, bool expected)
+{
+
+	const std::string out = output ? "true" : "false";
+	const std::string exp = expected ? "true" : "false";
+
+	showAssertionResult(passed, out, exp);
+}
+
 
 
 

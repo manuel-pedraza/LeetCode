@@ -3,6 +3,7 @@
 #include "functions.h"
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 
 ProblemList blind75list;
 
@@ -61,10 +62,66 @@ std::vector<bool> kidsWithTheGreatestNumberOfCandies(std::vector<int>& candies, 
 	int highestNumber = *std::max_element(candies.begin(), candies.end());
 	std::vector<bool> lstValidations;
 
-	for (int c : candies) 
+	for (int c : candies)
 		lstValidations.push_back(c + extraCandies >= highestNumber);
 
 	return lstValidations;
+}
+
+bool canPlaceFlowers(std::vector<int>& flowerbed, int flowersToBePlanted)
+{
+	if (flowerbed.size() < flowersToBePlanted)
+		return false;
+	else if (flowerbed.size() == 1 && flowerbed[0] == 0 && flowersToBePlanted == 1)
+		return true;
+
+	bool hasLeftOne = false;
+	int startZeroArray = -1;
+
+	for (int i = 0; i < flowerbed.size() && flowersToBePlanted > 0; i++) {
+
+		if (flowerbed[i] == 0) {
+			if (startZeroArray == -1) {
+				startZeroArray = i;
+				hasLeftOne = (i - 1 >= 0 && flowerbed[i - 1] == 1);
+			}
+
+			if (i == flowerbed.size() - 1) {
+
+				const int length = flowerbed.size() - (startZeroArray);
+
+
+
+				const int margin = hasLeftOne ? 2 : 1;
+				if (length >= margin) {
+					flowersToBePlanted--;
+					flowersToBePlanted -= std::floor((length - margin) / 2);
+				}
+
+
+			}
+
+		}
+		else {
+			if (startZeroArray != -1) {
+
+				const int length = (i + 1) - (startZeroArray + 1);
+
+				const int margin = hasLeftOne ? 3 : 2;
+				if (length >= margin) {
+					flowersToBePlanted--;
+					flowersToBePlanted -= std::floor((length - margin) / 2);
+				}
+
+				startZeroArray = -1;
+				hasLeftOne = false;
+			}
+
+		}
+	}
+
+
+	return flowersToBePlanted <= 0;
 }
 
 Information mergeAlternatelyWrapper(Information input)
@@ -157,18 +214,18 @@ Information greatestCommonDivisorStringsWrapper(Information input)
 Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input)
 {
 	// Destruct Informations
-	TypedProperty<std::vector<int>>* tpListNode1 = dynamic_cast<TypedProperty<std::vector<int>>*>(input.GetPropByPos(0));
-	TypedProperty<int>* tpListNode2 = dynamic_cast<TypedProperty<int>*>(input.GetPropByPos(1));
+	TypedProperty<std::vector<int>>* tpCandles = dynamic_cast<TypedProperty<std::vector<int>>*>(input.GetPropByPos(0));
+	TypedProperty<int>* tpExtraCandles = dynamic_cast<TypedProperty<int>*>(input.GetPropByPos(1));
 
 	// Validate Informations
-	if (!(tpListNode1 && tpListNode2)) return Information();
+	if (!(tpCandles && tpExtraCandles)) return Information();
 
 	// Destruct true Informations
-	std::vector<int> ln1 = tpListNode1->GetData();
-	int ln2 = tpListNode2->GetData();
+	std::vector<int> candies = tpCandles->GetData();
+	int extraCandies = tpExtraCandles->GetData();
 
 	// Apply Desired function
-	std::vector<bool> results = kidsWithTheGreatestNumberOfCandies(ln1, ln2);
+	std::vector<bool> results = kidsWithTheGreatestNumberOfCandies(candies, extraCandies);
 
 	// Wrap result
 	Property* out = new TypedProperty<std::vector<bool>>("output", results);
@@ -201,6 +258,49 @@ Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input)
 		}
 
 		showAssertionResult<bool>(hasPassed, compOut1, compOut2);
+		return hasPassed;
+	};
+
+	return output;
+}
+
+Information canPlaceFlowersWrapper(Information input)
+{
+	// Destruct Informations
+	TypedProperty<std::vector<int>>* tpFlowerbed = dynamic_cast<TypedProperty<std::vector<int>>*>(input.GetPropByPos(0));
+	TypedProperty<int>* tpFlowersToBePlanted = dynamic_cast<TypedProperty<int>*>(input.GetPropByPos(1));
+
+	// Validate Informations
+	if (!(tpFlowerbed && tpFlowersToBePlanted)) return Information();
+
+	// Destruct true Informations
+	std::vector<int> flowerbed = tpFlowerbed->GetData();
+	int flowersToBePlanted = tpFlowersToBePlanted->GetData();
+
+	// Apply Desired function
+	bool results = canPlaceFlowers(flowerbed, flowersToBePlanted);
+
+	// Wrap result
+	Property* out = new TypedProperty<bool>("output", results);
+	Information output;
+	output.AddProperty(out);
+
+	// Set Prop Comparator
+	output.PropComparator = [](Property* p1, Property* p2) {
+
+		// Destruct Informations
+		TypedProperty<bool>* out1 = dynamic_cast<TypedProperty<bool>*>(p1);
+		TypedProperty<bool>* out2 = dynamic_cast<TypedProperty<bool>*>(p2);
+
+		// Validate Informations
+		if (!(out1 && out2)) return false;
+
+		bool compOut1 = out1->GetData();
+		bool compOut2 = out2->GetData();
+
+		bool hasPassed = compOut1 == compOut2;
+
+		showAssertionResult(hasPassed, compOut1, compOut2);
 		return hasPassed;
 	};
 
@@ -315,17 +415,68 @@ ProblemManager kidsWithTheGreatestNumberOfCandiesInit()
 
 	mKidsWithTheGreatestNumberOfCandies.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{2, 3, 5, 1, 3}), new TypedProperty<int>(extraCandies, 3)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{4, 2, 1, 1, 2}), new TypedProperty<int>(extraCandies, 1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{12, 1, 12}), new TypedProperty<int>(extraCandies, 10)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{4, 2, 1, 1, 2}), new TypedProperty<int>(extraCandies, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(candies, std::vector<int>{12, 1, 12}), new TypedProperty<int>(extraCandies, 10)}),
 	});
 
 	mKidsWithTheGreatestNumberOfCandies.SetOutputs(std::vector<Information> {
 		Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, true, true, false, true}) }),
-		Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, false, false, false, false}) }),
-		Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, false, true}) }),
+			Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, false, false, false, false}) }),
+			Information(std::vector<Property*>{ new TypedProperty<std::vector<bool>>(output, std::vector<bool>{true, false, true}) }),
 	});
 
 	return mKidsWithTheGreatestNumberOfCandies;
+}
+
+ProblemManager canPlaceFlowersInit()
+{
+	ProblemManager mCanPlaceFlowersInit(Problem(
+		"Can Place Flowers",
+		"You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots. Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not empty, and an integer n, return true if n new flowers can be planted in the flowerbed without violating the no-adjacent-flowers rule and false otherwise.",
+		Difficulty::Easy
+	));
+
+	mCanPlaceFlowersInit.SetSolution(canPlaceFlowersWrapper);
+
+	// Set Informations 
+	// Input
+	const std::string flowerbed = "flowerbed";
+	const std::string flowersToBePlanted = "flowersToBePlanted";
+
+	// Output
+	const std::string output = "boolResult";
+
+	mCanPlaceFlowersInit.SetInputs(std::vector<Information> {
+		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{0, 0, 0, 0, 0}), new TypedProperty<int>(flowersToBePlanted, 3)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{0, 0, 0}), new TypedProperty<int>(flowersToBePlanted, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{0, 0, 1, 0, 0}), new TypedProperty<int>(flowersToBePlanted, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{0, 0}), new TypedProperty<int>(flowersToBePlanted, 2)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{1, 0}), new TypedProperty<int>(flowersToBePlanted, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{0, 0, 0}), new TypedProperty<int>(flowersToBePlanted, 2)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{0}), new TypedProperty<int>(flowersToBePlanted, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{1, 0, 0, 0, 1}), new TypedProperty<int>(flowersToBePlanted, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{1, 0, 0, 0, 1}), new TypedProperty<int>(flowersToBePlanted, 2)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{1, 0, 1, 0, 1, 0, 1}), new TypedProperty<int>(flowersToBePlanted, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{0, 0, 1, 0, 1}), new TypedProperty<int>(flowersToBePlanted, 1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(flowerbed, std::vector<int>{1, 0, 0, 0, 1, 0, 0}), new TypedProperty<int>(flowersToBePlanted, 2)}),
+	});
+
+	mCanPlaceFlowersInit.SetOutputs(std::vector<Information> {
+		Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, false) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, false) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, false) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, false) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+			Information(std::vector<Property*>{ new TypedProperty<bool>(output, true) }),
+	});
+
+	return mCanPlaceFlowersInit;
 }
 
 void InitializeBlind75List()
@@ -337,4 +488,5 @@ void InitializeBlind75List()
 	blind75list.AddProblemManager(mergeAlternatelyInit());
 	blind75list.AddProblemManager(greatestCommonDivisorStringsInit());
 	blind75list.AddProblemManager(kidsWithTheGreatestNumberOfCandiesInit());
+	blind75list.AddProblemManager(canPlaceFlowersInit());
 }

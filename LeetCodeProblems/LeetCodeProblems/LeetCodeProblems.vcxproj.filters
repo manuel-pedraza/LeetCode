@@ -25,11 +25,11 @@
     <Filter Include="Fichiers sources\LeetCodeFunctions">
       <UniqueIdentifier>{c8a5e218-37d3-475f-b7eb-8c12e28245b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Structs">
-      <UniqueIdentifier>{ab9c8a3c-26c0-466a-a15b-74960575100c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\Enums">
       <UniqueIdentifier>{b1b4d7a8-4091-4222-b2cf-4e059b9a4130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Structs">
+      <UniqueIdentifier>{ab9c8a3c-26c0-466a-a15b-74960575100c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
