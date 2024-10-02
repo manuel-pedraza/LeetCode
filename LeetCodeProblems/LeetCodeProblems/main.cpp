@@ -29,6 +29,11 @@ int main() {
 			: "One test has \033[31mFAILED")
 		<< "\033[37m" << std::endl;
 
+	std::cout <<
+		(blind75list.SolveByName("Reverse Vowels of a String") ? "All tests have \033[34mPASSED"
+			: "One test has \033[31mFAILED")
+		<< "\033[37m" << std::endl;
+
 	//p1.SetInputs(Information(std::vector<Property*>(pvalue1, pvalue2)));
 	//Information i1();
 

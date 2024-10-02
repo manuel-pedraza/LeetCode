@@ -91,7 +91,6 @@ bool canPlaceFlowers(std::vector<int>& flowerbed, int flowersToBePlanted)
 				const int length = flowerbed.size() - (startZeroArray);
 
 
-
 				const int margin = hasLeftOne ? 2 : 1;
 				if (length >= margin) {
 					flowersToBePlanted--;
@@ -121,7 +120,71 @@ bool canPlaceFlowers(std::vector<int>& flowerbed, int flowersToBePlanted)
 	}
 
 
+	/*
+	int len = flowerbed.length;
+		int i = 0;
+		while(i < len && n > 0) {
+			if(flowerbed[i] == 1) i += 2;
+			else if(i == len - 1 || flowerbed[i + 1] == 0) {
+				n--;
+				i += 2;
+			}
+			else i += 3;
+		}
+		return n <= 0;
+	*/
+
 	return flowersToBePlanted <= 0;
+}
+
+std::string reverseVowelsOfString(std::string s)
+{
+	std::string out = "";
+	std::map<int, char> chars;
+
+	for (int i = 0; i < s.length(); i++)
+		if (isVowel(s[i]))
+			chars.emplace(std::make_pair(i, s[i]));
+
+	if (chars.max_size() % 2 != 0) {
+		auto it = next(chars.begin(), std::ceil((double)chars.max_size() / 2) - 1);
+		chars.erase(it);
+	}
+
+	for (int i = 0; i < s.length(); i++) {
+		if (isVowel(s[i]) && !chars.empty()) {
+			out += std::prev(chars.end())->second;
+			chars.erase(std::prev(chars.end())->first);
+		}
+		else
+			out += s[i];
+
+	}
+
+	return out;
+
+	/*
+		char[] word = s.toCharArray();
+		int start = 0;
+		int end = s.length() - 1;
+		String vowels = "aeiouAEIOU";
+		while (start < end) {
+			while (start < end && vowels.indexOf(word[start]) == -1) {
+				start++;
+			}
+			while (start < end && vowels.indexOf(word[end]) == -1) {
+				end--;
+			}
+			char temp = word[start];
+			word[start] = word[end];
+			word[end] = temp;
+
+			start++;
+			end--;
+		}
+		String answer = new String(word);
+		return answer;
+	*/
 }
 
 Information mergeAlternatelyWrapper(Information input)
@@ -307,6 +370,47 @@ Information canPlaceFlowersWrapper(Information input)
 	return output;
 }
 
+Information reverseVowelsOfStringWrapper(Information input)
+{
+	// Destruct Informations
+	TypedProperty<std::string>* tpInputStr = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(0));
+
+	// Validate Informations
+	if (!(tpInputStr)) return Information();
+
+	// Destruct true Informations
+	std::string inputStr = tpInputStr->GetData();
+
+	// Apply Desired function
+	std::string results = reverseVowelsOfString(inputStr);
+
+	// Wrap result
+	Property* out = new TypedProperty<std::string>("output", results);
+	Information output;
+	output.AddProperty(out);
+
+	// Set Prop Comparator
+	output.PropComparator = [](Property* p1, Property* p2) {
+
+		// Destruct Informations
+		TypedProperty<std::string>* out1 = dynamic_cast<TypedProperty<std::string>*>(p1);
+		TypedProperty<std::string>* out2 = dynamic_cast<TypedProperty<std::string>*>(p2);
+
+		// Validate Informations
+		if (!(out1 && out2)) return false;
+
+		std::string compOut1 = out1->GetData();
+		std::string compOut2 = out2->GetData();
+
+		bool hasPassed = compOut1 == compOut2;
+
+		showAssertionResult(hasPassed, compOut1, compOut2);
+		return hasPassed;
+	};
+
+	return output;
+}
+
 ProblemManager mergeAlternatelyInit()
 {
 	ProblemManager mMergeAlternately(Problem(
@@ -389,7 +493,7 @@ ProblemManager greatestCommonDivisorStringsInit()
 			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "MANSDOAWMANSDOAW") }),
 			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "MNNWONOWNNMMNNWONOWNNM") }),
 			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") }),
-			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "ALWAYS FAILED TEST") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "") }),
 	});
 
 	return mGreatestCommonDivisorStringsInit;
@@ -479,6 +583,36 @@ ProblemManager canPlaceFlowersInit()
 	return mCanPlaceFlowersInit;
 }
 
+ProblemManager reverseVowelsOfStringInit()
+{
+	ProblemManager mReverseVowelsOfStringInit(Problem(
+		"Reverse Vowels of a String",
+		"Given a string s, reverse only all the vowels in the string and return it. The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lowerand upper cases, more than once.",
+		Difficulty::Easy
+	));
+
+	mReverseVowelsOfStringInit.SetSolution(reverseVowelsOfStringWrapper);
+
+	// Set Informations 
+	// Input
+	const std::string str = "Input String";
+
+	// Output
+	const std::string output = "Output String";
+
+	mReverseVowelsOfStringInit.SetInputs(std::vector<Information> {
+		Information(std::vector<Property*>{new TypedProperty<std::string>(str, "IceCreAm")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str, "leetcode")}),
+	});
+
+	mReverseVowelsOfStringInit.SetOutputs(std::vector<Information> {
+		Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "AceCreIm") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "leotcede") }),
+	});
+
+	return mReverseVowelsOfStringInit;
+}
+
 void InitializeBlind75List()
 {
 	// Verify list isn't loaded
@@ -489,4 +623,5 @@ void InitializeBlind75List()
 	blind75list.AddProblemManager(greatestCommonDivisorStringsInit());
 	blind75list.AddProblemManager(kidsWithTheGreatestNumberOfCandiesInit());
 	blind75list.AddProblemManager(canPlaceFlowersInit());
+	blind75list.AddProblemManager(reverseVowelsOfStringInit());
 }

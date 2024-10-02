@@ -6,6 +6,7 @@
 #include "problemslist.h"
 
 // Function List
+bool isVowel(char letter);
 void showAssertionResult(bool passed, std::string output, std::string expected);
 void showAssertionResult(bool passed, bool output, bool expected);
 void showAssertionIndexAndTotal(bool passed, int index, int total);
