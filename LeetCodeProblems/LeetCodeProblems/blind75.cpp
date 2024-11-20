@@ -187,6 +187,93 @@ std::string reverseVowelsOfString(std::string s)
 	*/
 }
 
+std::string reverseWordsInString(std::string s)
+{
+	if (s.length() == 1 && !std::isspace(s[0]))
+		return s;
+
+	bool hasFoundWord = false;
+	int start = 0;
+	int end = s.length() - 1;
+	std::string lword = "";
+	std::string rword = "";
+	std::string lNewString = "";
+	std::string rNewString = "";
+
+	while (start < end) {
+		hasFoundWord = false;
+		while (start <= end && !(hasFoundWord && std::isspace(s[start]))) {
+
+			if (hasFoundWord) {
+				lword += s[start];
+
+			}else if (!std::isspace(s[start])) {
+				lword += s[start];
+				hasFoundWord = true;
+
+			}
+
+			start++;
+		}
+
+		hasFoundWord = false;
+		while (start < end && !(hasFoundWord && std::isspace(s[end]))) {
+
+			if (hasFoundWord) {
+				rword = s[end] + rword;
+
+			}
+			else if (!std::isspace(s[end])) {
+				rword = s[end] + rword;
+				hasFoundWord = true;
+
+			}
+
+			end--;
+		}
+
+
+
+		lNewString += rword + (start < end ? " " : "");
+		rNewString = (start < end ? " " : "") + lword + rNewString;
+
+		lword = "";
+		rword = "";
+
+	}
+
+	if(lNewString.length() > 1 && std::isspace(lNewString[lNewString.length() - 1]))
+		lNewString = lNewString.substr(0, lNewString.length() - 1);
+
+	if (rNewString.length() > 1 && std::isspace(rNewString[0]))
+		rNewString = rNewString.substr(1);
+	
+	return lNewString + (std::empty(lNewString) ? "" : " ") + rNewString;
+
+	/*
+	reverse(s.begin(), s.end());
+        int n = s.size();
+        int left = 0;
+        int right = 0;
+        int i = 0;
+        while (i < n) {
+            while (i < n && s[i] == ' ')
+                i++;
+            if (i == n)
+                break;
+            while (i < n && s[i] != ' ') {
+                s[right++] = s[i++];
+            }
+            reverse(s.begin() + left, s.begin() + right);
+            s[right++] = ' ';
+            left = right;
+            i++;
+        }
+        s.resize(right - 1);
+        return s;
+	*/
+}
+
 Information mergeAlternatelyWrapper(Information input)
 {
 	// Destruct Informations
@@ -383,6 +470,47 @@ Information reverseVowelsOfStringWrapper(Information input)
 
 	// Apply Desired function
 	std::string results = reverseVowelsOfString(inputStr);
+
+	// Wrap result
+	Property* out = new TypedProperty<std::string>("output", results);
+	Information output;
+	output.AddProperty(out);
+
+	// Set Prop Comparator
+	output.PropComparator = [](Property* p1, Property* p2) {
+
+		// Destruct Informations
+		TypedProperty<std::string>* out1 = dynamic_cast<TypedProperty<std::string>*>(p1);
+		TypedProperty<std::string>* out2 = dynamic_cast<TypedProperty<std::string>*>(p2);
+
+		// Validate Informations
+		if (!(out1 && out2)) return false;
+
+		std::string compOut1 = out1->GetData();
+		std::string compOut2 = out2->GetData();
+
+		bool hasPassed = compOut1 == compOut2;
+
+		showAssertionResult(hasPassed, compOut1, compOut2);
+		return hasPassed;
+	};
+
+	return output;
+}
+
+Information reverseWordsInStringWrapper(Information input)
+{
+	// Destruct Informations
+	TypedProperty<std::string>* tpInputStr = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(0));
+
+	// Validate Informations
+	if (!(tpInputStr)) return Information();
+
+	// Destruct true Informations
+	std::string inputStr = tpInputStr->GetData();
+
+	// Apply Desired function
+	std::string results = reverseWordsInString(inputStr);
 
 	// Wrap result
 	Property* out = new TypedProperty<std::string>("output", results);
@@ -613,6 +741,45 @@ ProblemManager reverseVowelsOfStringInit()
 	return mReverseVowelsOfStringInit;
 }
 
+ProblemManager reverseWordsInStringInit()
+{
+	ProblemManager mReverseWordsInStringInit(Problem(
+		"Reverse Words in a String",
+		"Given an input string s, reverse the order of the words. A word is defined as a sequence of non - space characters.The words in s will be separated by at least one space. Return a string of the words in reverse order concatenated by a single space. Note that s may contain leading or trailing spaces or multiple spaces between two words.The returned string should only have a single space separating the words.Do not include any extra spaces.",
+		Difficulty::Medium
+	));
+
+	mReverseWordsInStringInit.SetSolution(reverseWordsInStringWrapper);
+
+	// Set Informations 
+	// Input
+	const std::string str = "Input String";
+
+	// Output
+	const std::string output = "Output String";
+
+	mReverseWordsInStringInit.SetInputs(std::vector<Information> {
+		Information(std::vector<Property*>{new TypedProperty<std::string>(str, "the sky is blue")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str, "  hello world  ")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str, "a good   example")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str, "EPY2giL")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str, " 3c      2zPeO dpIMVv2SG    1AM       o       VnUhxK a5YKNyuG     x9    EQ  ruJO       0Dtb8qG91w 1rT3zH F0m n G wU")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(str, "a")}),
+	});
+
+	mReverseWordsInStringInit.SetOutputs(std::vector<Information> {
+		Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "blue is sky the") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "world hello") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "example good a") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "EPY2giL") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "wU G n F0m 1rT3zH 0Dtb8qG91w ruJO EQ x9 a5YKNyuG VnUhxK o 1AM dpIMVv2SG 2zPeO 3c") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>(output, "a") }),
+	});
+
+	return mReverseWordsInStringInit;
+}
+
+
 void InitializeBlind75List()
 {
 	// Verify list isn't loaded
@@ -624,4 +791,5 @@ void InitializeBlind75List()
 	blind75list.AddProblemManager(kidsWithTheGreatestNumberOfCandiesInit());
 	blind75list.AddProblemManager(canPlaceFlowersInit());
 	blind75list.AddProblemManager(reverseVowelsOfStringInit());
+	blind75list.AddProblemManager(reverseWordsInStringInit());
 }
