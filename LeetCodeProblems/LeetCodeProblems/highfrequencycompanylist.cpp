@@ -87,17 +87,9 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 
 // Wrappers
 Information twoSumWrapper(Information i) {
-
-	// Destruct Informations
-	TypedProperty<std::vector<int>>* tpValues = dynamic_cast<TypedProperty<std::vector<int>>*>(i.GetPropByPos(0));
-	TypedProperty<int>* tpNumber = dynamic_cast<TypedProperty<int>*>(i.GetPropByPos(1));
-
-	// Validate Informations
-	if (!(tpValues && tpNumber)) return Information();
-
 	// Destruct true Informations
-	std::vector<int> vals = tpValues->GetData();
-	int number = tpNumber->GetData();
+	std::vector<int> vals = i.GetValueByPos<std::vector<int>>(0);
+	int number = i.GetValueByPos<int>(1);
 
 	// Apply Desired function
 	std::vector<int> results = twoSum(vals, number);
@@ -121,16 +113,9 @@ Information twoSumWrapper(Information i) {
 
 Information addTwoNumbersWrapper(Information i)
 {
-	// Destruct Informations
-	TypedProperty<ListNode*>* tpListNode1 = dynamic_cast<TypedProperty<ListNode*>*>(i.GetPropByPos(0));
-	TypedProperty<ListNode*>* tpListNode2 = dynamic_cast<TypedProperty<ListNode*>*>(i.GetPropByPos(1));
-
-	// Validate Informations
-	if (!(tpListNode1 && tpListNode2)) return Information();
-
 	// Destruct true Informations
-	ListNode* ln1 = tpListNode1->GetData();
-	ListNode* ln2 = tpListNode2->GetData();
+	ListNode* ln1 = i.GetValueByPos<ListNode*>(0);
+	ListNode* ln2 = i.GetValueByPos<ListNode*>(1);
 
 	// Apply Desired function
 	ListNode* results = addTwoNumbers(ln1, ln2);

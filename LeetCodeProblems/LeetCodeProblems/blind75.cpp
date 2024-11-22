@@ -283,16 +283,9 @@ std::string reverseWordsInString(std::string s)
 
 Information mergeAlternatelyWrapper(Information input)
 {
-	// Destruct Informations
-	TypedProperty<std::string>* tpWord1 = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(0));
-	TypedProperty<std::string>* tpWord2 = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(1));
-
-	// Validate Informations
-	if (!(tpWord1 && tpWord2)) throw Information();
-
 	// Destruct true Informations
-	std::string word1 = tpWord1->GetData();
-	std::string word2 = tpWord2->GetData();
+	std::string word1 = input.GetValueByPos<std::string>(0);
+	std::string word2 = input.GetValueByPos<std::string>(1);
 
 	// Apply Desired function
 	std::string results = mergeAlternately(word1, word2);
@@ -316,16 +309,9 @@ Information mergeAlternatelyWrapper(Information input)
 
 Information greatestCommonDivisorStringsWrapper(Information input)
 {
-	// Destruct Informations
-	TypedProperty<std::string>* tpWord1 = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(0));
-	TypedProperty<std::string>* tpWord2 = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(1));
-
-	// Validate Informations
-	if (!(tpWord1 && tpWord2)) throw Information();
-
 	// Destruct true Informations
-	std::string str1 = tpWord1->GetData();
-	std::string str2 = tpWord2->GetData();
+	std::string str1 = input.GetValueByPos<std::string>(0);
+	std::string str2 = input.GetValueByPos<std::string>(1);
 
 	// Apply Desired function
 	std::string results = greatestCommonDivisorStrings(str1, str2);
@@ -349,16 +335,9 @@ Information greatestCommonDivisorStringsWrapper(Information input)
 
 Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input)
 {
-	// Destruct Informations
-	TypedProperty<std::vector<int>>* tpCandles = dynamic_cast<TypedProperty<std::vector<int>>*>(input.GetPropByPos(0));
-	TypedProperty<int>* tpExtraCandles = dynamic_cast<TypedProperty<int>*>(input.GetPropByPos(1));
-
-	// Validate Informations
-	if (!(tpCandles && tpExtraCandles)) return Information();
-
 	// Destruct true Informations
-	std::vector<int> candies = tpCandles->GetData();
-	int extraCandies = tpExtraCandles->GetData();
+	std::vector<int> candies = input.GetValueByPos<std::vector<int>>(0);
+	int extraCandies = input.GetValueByPos<int>(1);
 
 	// Apply Desired function
 	std::vector<bool> results = kidsWithTheGreatestNumberOfCandies(candies, extraCandies);
@@ -382,16 +361,9 @@ Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input)
 
 Information canPlaceFlowersWrapper(Information input)
 {
-	// Destruct Informations
-	TypedProperty<std::vector<int>>* tpFlowerbed = dynamic_cast<TypedProperty<std::vector<int>>*>(input.GetPropByPos(0));
-	TypedProperty<int>* tpFlowersToBePlanted = dynamic_cast<TypedProperty<int>*>(input.GetPropByPos(1));
-
-	// Validate Informations
-	if (!(tpFlowerbed && tpFlowersToBePlanted)) return Information();
-
 	// Destruct true Informations
-	std::vector<int> flowerbed = tpFlowerbed->GetData();
-	int flowersToBePlanted = tpFlowersToBePlanted->GetData();
+	std::vector<int> flowerbed = input.GetValueByPos<std::vector<int>>(0);
+	int flowersToBePlanted = input.GetValueByPos<int>(1);
 
 	// Apply Desired function
 	bool results = canPlaceFlowers(flowerbed, flowersToBePlanted);
@@ -415,14 +387,8 @@ Information canPlaceFlowersWrapper(Information input)
 
 Information reverseVowelsOfStringWrapper(Information input)
 {
-	// Destruct Informations
-	TypedProperty<std::string>* tpInputStr = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(0));
-
-	// Validate Informations
-	if (!(tpInputStr)) return Information();
-
 	// Destruct true Informations
-	std::string inputStr = tpInputStr->GetData();
+	std::string inputStr = input.GetValueByPos<std::string>(0);
 
 	// Apply Desired function
 	std::string results = reverseVowelsOfString(inputStr);
@@ -446,14 +412,8 @@ Information reverseVowelsOfStringWrapper(Information input)
 
 Information reverseWordsInStringWrapper(Information input)
 {
-	// Destruct Informations
-	TypedProperty<std::string>* tpInputStr = dynamic_cast<TypedProperty<std::string>*>(input.GetPropByPos(0));
-
-	// Validate Informations
-	if (!(tpInputStr)) return Information();
-
 	// Destruct true Informations
-	std::string inputStr = tpInputStr->GetData();
+	std::string inputStr = input.GetValueByPos<std::string>(0);
 
 	// Apply Desired function
 	std::string results = reverseWordsInString(inputStr);
