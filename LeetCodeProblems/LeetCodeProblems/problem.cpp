@@ -13,5 +13,9 @@ bool Problem::Solve(Information input, Information output)
 
 	Information outputSol = ProbSolution(input);
 
-	return outputSol.Compare(output);
+	const bool result = outputSol.Compare(output);
+
+	// MESSAGE
+
+	return result;
 }

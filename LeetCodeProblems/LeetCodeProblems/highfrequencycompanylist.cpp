@@ -1,6 +1,8 @@
 #include "highfrequencycompanylist.h"
 #include <unordered_map>
 #include "problemslist.h"
+#include "functions.h"
+
 
 ProblemList highfreqlist;
 
@@ -108,25 +110,9 @@ Information twoSumWrapper(Information i) {
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
 
-		// Destruct Informations
-		TypedProperty<std::vector<int>>* out1 = dynamic_cast<TypedProperty<std::vector<int>>*>(p1);
-		TypedProperty<std::vector<int>>* out2 = dynamic_cast<TypedProperty<std::vector<int>>*>(p2);
-
-		// Validate Informations
-		if (!(out1 && out2)) return false;
-
-		std::vector<int> compOut1 = out1->GetData();
-		std::vector<int> compOut2 = out2->GetData();
-
-		if (compOut1.size() != compOut2.size()) return false;
-
-		for (int i = 0; i < compOut1.size() && i < compOut2.size(); i++) {
-			if (compOut1.at(i) != compOut2.at(i))
-				return false;
-
-		}
-
-		return true;
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::vector<int>>(p1, p2);
+		showAssertionResult<int>(hasPassed, received, expected);
+		return hasPassed;
 	};
 
 	return output;
@@ -156,6 +142,8 @@ Information addTwoNumbersWrapper(Information i)
 
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
+
+		// Here we can't use auto Information::GeneralPropComparator, 'cause it's type is a complex struct
 
 		// Destruct Informations
 		TypedProperty<ListNode*>* out1 = dynamic_cast<TypedProperty<ListNode*>*>(p1);

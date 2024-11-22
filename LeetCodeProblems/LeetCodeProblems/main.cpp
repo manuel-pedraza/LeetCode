@@ -13,7 +13,10 @@ int main() {
 	std::cout << "\033[37m";
 	//std::cout << (highfreqlist.SolveByName("Two Sum") ? "PASSED" : "FAILED") << std::endl;
 	//std::cout << (highfreqlist.SolveByName("Add Two Numbers") ? "PASSED" : "FAILED") << std::endl;
-	//std::cout << (blind75list.SolveByName("Merge Strings Alternately") ? "PASSED" : "FAILED") << std::endl;
+	std::cout <<
+		(blind75list.SolveByName("Merge Strings Alternately") ? "All tests have \033[34mPASSED"
+			: "One test has \033[31mFAILED")
+		<< "\033[37m" << std::endl;
 	std::cout <<
 		(blind75list.SolveByName("Greatest Common Divisor of Strings") ? "All tests have \033[34mPASSED"
 			: "One test has \033[31mFAILED")

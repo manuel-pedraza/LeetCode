@@ -207,7 +207,8 @@ std::string reverseWordsInString(std::string s)
 			if (hasFoundWord) {
 				lword += s[start];
 
-			}else if (!std::isspace(s[start])) {
+			}
+			else if (!std::isspace(s[start])) {
 				lword += s[start];
 				hasFoundWord = true;
 
@@ -242,35 +243,41 @@ std::string reverseWordsInString(std::string s)
 
 	}
 
-	if(lNewString.length() > 1 && std::isspace(lNewString[lNewString.length() - 1]))
+	if (lNewString.length() > 1 && std::isspace(lNewString[lNewString.length() - 1]))
 		lNewString = lNewString.substr(0, lNewString.length() - 1);
 
 	if (rNewString.length() > 1 && std::isspace(rNewString[0]))
 		rNewString = rNewString.substr(1);
-	
+
 	return lNewString + (std::empty(lNewString) ? "" : " ") + rNewString;
 
 	/*
 	reverse(s.begin(), s.end());
-        int n = s.size();
-        int left = 0;
-        int right = 0;
-        int i = 0;
-        while (i < n) {
-            while (i < n && s[i] == ' ')
-                i++;
-            if (i == n)
-                break;
-            while (i < n && s[i] != ' ') {
-                s[right++] = s[i++];
-            }
-            reverse(s.begin() + left, s.begin() + right);
-            s[right++] = ' ';
-            left = right;
-            i++;
-        }
-        s.resize(right - 1);
-        return s;
+		int n = s.size();
+		int left = 0;
+		int right = 0;
+		int i = 0;
+		while (i < n) {
+			while (i < n && s[i] == ' ')
+				i++;
+			if (i == n)
+				break;
+			while (i < n && s[i] != ' ') {
+				s[right++] = s[i++];
+			}
+			reverse(s.begin() + left, s.begin() + right);
+
+			if (s[right - 1] == ' ')
+				s.resize(right - 1);
+			else
+				s.resize(right)
+
+			s[right++] = ' ';
+			left = right;
+			i++;
+		}
+		s.resize(right - 1);
+		return s;
 	*/
 }
 
@@ -298,18 +305,8 @@ Information mergeAlternatelyWrapper(Information input)
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
 
-		// Destruct Informations
-		TypedProperty<std::string>* out1 = dynamic_cast<TypedProperty<std::string>*>(p1);
-		TypedProperty<std::string>* out2 = dynamic_cast<TypedProperty<std::string>*>(p2);
-
-		// Validate Informations
-		if (!(out1 && out2)) return false;
-
-		std::string compOut1 = out1->GetData();
-		std::string compOut2 = out2->GetData();
-
-		const bool hasPassed = compOut1 == compOut2;
-		showAssertionResult(hasPassed, compOut1, compOut2);
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::string>(p1, p2);
+		showAssertionResult(hasPassed, received, expected);
 
 		return hasPassed;
 	};
@@ -341,21 +338,10 @@ Information greatestCommonDivisorStringsWrapper(Information input)
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
 
-		// Destruct Informations
-		TypedProperty<std::string>* out1 = dynamic_cast<TypedProperty<std::string>*>(p1);
-		TypedProperty<std::string>* out2 = dynamic_cast<TypedProperty<std::string>*>(p2);
-
-		// Validate Informations
-		if (!(out1 && out2)) return false;
-
-		std::string compOut1 = out1->GetData();
-		std::string compOut2 = out2->GetData();
-
-		const bool hasPassed = compOut1 == compOut2;
-
-		showAssertionResult(hasPassed, compOut1, compOut2);
-
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::string>(p1, p2);
+		showAssertionResult(hasPassed, received, expected);
 		return hasPassed;
+
 	};
 
 	return output;
@@ -385,30 +371,10 @@ Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input)
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
 
-		// Destruct Informations
-		TypedProperty<std::vector<bool>>* out1 = dynamic_cast<TypedProperty<std::vector<bool>>*>(p1);
-		TypedProperty<std::vector<bool>>* out2 = dynamic_cast<TypedProperty<std::vector<bool>>*>(p2);
-
-		// Validate Informations
-		if (!(out1 && out2)) return false;
-
-		std::vector<bool> compOut1 = out1->GetData();
-		std::vector<bool> compOut2 = out2->GetData();
-
-		if (compOut1.size() != compOut2.size()) return false;
-
-		bool hasPassed = true;
-
-		for (int i = 0; i < compOut1.size() && i < compOut2.size(); i++) {
-			if (compOut1.at(i) != compOut2.at(i)) {
-				hasPassed = false;
-				break;
-			}
-
-		}
-
-		showAssertionResult<bool>(hasPassed, compOut1, compOut2);
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::vector<bool>>(p1, p2);
+		showAssertionResult<bool>(hasPassed, received, expected);
 		return hasPassed;
+
 	};
 
 	return output;
@@ -438,20 +404,10 @@ Information canPlaceFlowersWrapper(Information input)
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
 
-		// Destruct Informations
-		TypedProperty<bool>* out1 = dynamic_cast<TypedProperty<bool>*>(p1);
-		TypedProperty<bool>* out2 = dynamic_cast<TypedProperty<bool>*>(p2);
-
-		// Validate Informations
-		if (!(out1 && out2)) return false;
-
-		bool compOut1 = out1->GetData();
-		bool compOut2 = out2->GetData();
-
-		bool hasPassed = compOut1 == compOut2;
-
-		showAssertionResult(hasPassed, compOut1, compOut2);
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<bool>(p1, p2);
+		showAssertionResult(hasPassed, received, expected);
 		return hasPassed;
+
 	};
 
 	return output;
@@ -479,20 +435,10 @@ Information reverseVowelsOfStringWrapper(Information input)
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
 
-		// Destruct Informations
-		TypedProperty<std::string>* out1 = dynamic_cast<TypedProperty<std::string>*>(p1);
-		TypedProperty<std::string>* out2 = dynamic_cast<TypedProperty<std::string>*>(p2);
-
-		// Validate Informations
-		if (!(out1 && out2)) return false;
-
-		std::string compOut1 = out1->GetData();
-		std::string compOut2 = out2->GetData();
-
-		bool hasPassed = compOut1 == compOut2;
-
-		showAssertionResult(hasPassed, compOut1, compOut2);
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::string>(p1, p2);
+		showAssertionResult(hasPassed, received, expected);
 		return hasPassed;
+
 	};
 
 	return output;
@@ -520,20 +466,10 @@ Information reverseWordsInStringWrapper(Information input)
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
 
-		// Destruct Informations
-		TypedProperty<std::string>* out1 = dynamic_cast<TypedProperty<std::string>*>(p1);
-		TypedProperty<std::string>* out2 = dynamic_cast<TypedProperty<std::string>*>(p2);
-
-		// Validate Informations
-		if (!(out1 && out2)) return false;
-
-		std::string compOut1 = out1->GetData();
-		std::string compOut2 = out2->GetData();
-
-		bool hasPassed = compOut1 == compOut2;
-
-		showAssertionResult(hasPassed, compOut1, compOut2);
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::string>(p1, p2);
+		showAssertionResult(hasPassed, received, expected);
 		return hasPassed;
+		
 	};
 
 	return output;

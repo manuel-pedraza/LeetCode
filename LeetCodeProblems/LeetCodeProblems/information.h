@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "property.h"
+#include <tuple>
 
 class Information {
 
@@ -21,7 +22,42 @@ public:
 	bool Compare(Information output);
 	void AddProperty(Property* prop);
 	Comparator PropComparator = nullptr;
+	template<typename T>
+	static std::tuple<bool, T, T> GeneralPropComparator(Property* prop1, Property* prop2) {
+		TypedProperty<T>* out1 = dynamic_cast<TypedProperty<T>*>(prop1);
+		TypedProperty<T>* out2 = dynamic_cast<TypedProperty<T>*>(prop2);
 
+		if (!(out1 && out2)) return {false, T(), T()};
+
+		T value1, value2;
+		out1->SetDataByRef(value1);
+		out2->SetDataByRef(value2);
+
+		bool assertion = out1->Compare(*out2);
+
+		return { assertion, value1, value2 };
+
+		/*
+		// code prior C++17:
+		// Function:
+		TypedProperty<T>* out1 = dynamic_cast<TypedProperty<T>*>(prop1);
+		TypedProperty<T>* out2 = dynamic_cast<TypedProperty<T>*>(prop2);
+
+		if (!(out1 && out2)) return std::make_tuple(false, T(), T());
+
+		T value1, value2;
+		out1->SetDataByRef(value1);
+		out2->SetDataByRef(value2);
+
+		bool assertion = out1->Compare(*out2);
+
+		return std::make_tuple(assertion, value1, value2);
+		// Function in use (for string):
+		bool assertion;
+		std::string received, expected;
+		tie(assertion, received, expected) = GeneralPropComparator<bool, std::string, std::string>(p1, p2);
+		*/
+	}
 
 private:
 	property_list_type list;

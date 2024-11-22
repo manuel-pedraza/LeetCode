@@ -19,7 +19,8 @@ public:
     TypedProperty(const std::string& name, const T& data) : m_name(name), m_data(data) {};
     T GetData();
     void SetData(T data);
-    TypedProperty<T>* SetDataAndReturn(T data);
+    void SetDataByRef(T& data);
+    void SetDataByRef(std::string& name, T& data);
     bool Compare(TypedProperty tp);
 private:
     std::string m_name;
@@ -40,14 +41,23 @@ inline void TypedProperty<T>::SetData(T data)
 }
 
 template<typename T>
-inline TypedProperty<T>* TypedProperty<T>::SetDataAndReturn(T data)
+inline void TypedProperty<T>::SetDataByRef(T& data)
 {
-    return new TypedProperty<T>(std::string(m_name), data);
+    data = this->m_data;
+}
+
+template<typename T>
+inline void TypedProperty<T>::SetDataByRef(std::string& name, T& data)
+{
+    data = this->m_data;
+    name = this->m_name;
 }
 
 template<typename T>
 inline bool TypedProperty<T>::Compare(TypedProperty tp)
 {
+    //if(tp)
+
     return this->m_data == tp.m_data;
 }
 
