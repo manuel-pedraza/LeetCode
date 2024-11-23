@@ -1,11 +1,12 @@
 #include "blind75.h"
 #include <numeric>
 #include "functions.h"
+#include "screenfunctions.h"
 #include <algorithm>
 #include <iostream>
 #include <cmath>
 
-ProblemList blind75list;
+ProblemList blind75list("Blind 75 List");
 
 std::string mergeAlternately(std::string word1, std::string word2)
 {

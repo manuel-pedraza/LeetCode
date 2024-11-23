@@ -2,9 +2,9 @@
 #include <unordered_map>
 #include "problemslist.h"
 #include "functions.h"
+#include "screenfunctions.h"
 
-
-ProblemList highfreqlist;
+ProblemList highfreqlist("High Frequency List");
 
 // Function Solution
 std::vector<int> twoSum(std::vector<int>& nums, int target) {

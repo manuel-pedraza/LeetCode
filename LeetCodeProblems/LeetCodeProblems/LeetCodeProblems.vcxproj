@@ -149,10 +149,13 @@
     <ClCompile Include="problemslist.cpp" />
     <ClCompile Include="property.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="screenfunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blind75.h" />
     <ClInclude Include="functions.h" />
+    <ClInclude Include="menustate.h" />
+    <ClInclude Include="screenfunctions.h" />
     <ClInclude Include="topics.h" />
     <ClInclude Include="highfrequencycompanylist.h" />
     <ClInclude Include="information.h" />

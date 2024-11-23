@@ -9,17 +9,21 @@
 class ProblemList {
 
 public:
-	ProblemList();
+	ProblemList(std::string name);
 	~ProblemList();
 	bool Init();
 	void SolveAll();
 	void AddProblemManager(ProblemManager pm);
 	bool SolveByName(std::string name);
 	void AddFunction(std::string problemName, Problem::Solution solFunc);
+	std::string GetListName();
+	static inline std::vector<ProblemList*> allLists;
+
 private:
 	bool bHasBeenInitialized = false;
 	std::map<std::string, Problem::Solution> functionList;
 	std::vector<ProblemManager> list;
+	std::string m_name;
 };
 
 #endif // !PROBLEM_LIST_H__

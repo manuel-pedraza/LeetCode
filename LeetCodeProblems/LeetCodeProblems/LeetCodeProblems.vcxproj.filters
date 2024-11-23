@@ -60,6 +60,9 @@
     <ClCompile Include="functions.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
+    <ClCompile Include="screenfunctions.cpp">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="information.h">
@@ -91,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="functions.h">
       <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="screenfunctions.h">
+      <Filter>Fichiers d%27en-tête\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="menustate.h">
+      <Filter>Fichiers d%27en-tête\Enums</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

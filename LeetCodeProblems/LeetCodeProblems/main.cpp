@@ -1,16 +1,57 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 #include "highfrequencycompanylist.h"
 #include "blind75.h"
-
+#include "functions.h"
+#include "screenfunctions.h"
+#include "menustate.h"
 
 int main() {
 
 	InitializeHighFreqList();
 	InitializeBlind75List();
+
+	std::string userInput;
+	MenuState ms = MenuState::Main;
+
 	std::cout << "\033[37m";
+
+	do {
+		ClearSreen();
+
+		switch (ms)
+		{
+		case MenuState::Main:
+			showMainMenu();
+			break;
+		case MenuState::ProblemManager:
+			break;
+		case MenuState::Problem:
+			break;
+		default:
+			break;
+		}
+
+		std::getline(std::cin, userInput);
+		std::transform(userInput.begin(), userInput.end(), userInput.begin(), [](auto c) {return std::toupper(c); });
+
+		switch (ms)
+		{
+		case MenuState::Main:
+			break;
+		case MenuState::ProblemManager:
+			break;
+		case MenuState::Problem:
+			break;
+		default:
+			break;
+		}
+
+	} while (!(ms == MenuState::Main && userInput == "Q"));
+
 	std::cout << (highfreqlist.SolveByName("Two Sum") ? "PASSED" : "FAILED") << std::endl;
 	//std::cout << (highfreqlist.SolveByName("Add Two Numbers") ? "PASSED" : "FAILED") << std::endl;
 	std::cout <<

@@ -1,6 +1,6 @@
 #include "problemmanager.h"
 #include <stdlib.h>
-#include "functions.h"
+#include "screenfunctions.h"
 
 ProblemManager::ProblemManager(Problem prob) : problem(prob) {
 

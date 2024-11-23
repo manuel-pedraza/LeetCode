@@ -1,8 +1,9 @@
 #include "problemslist.h"
 #include "problemmanager.h"
+#include "screenfunctions.h"
 #include "functions.h"
 
-ProblemList::ProblemList()
+ProblemList::ProblemList(std::string name) : m_name(name)
 {
 }
 
@@ -17,6 +18,7 @@ bool ProblemList::Init()
 		return false;
 
 	bHasBeenInitialized = true;
+	allLists.push_back(this);
 
 	return true;
 }
@@ -63,4 +65,9 @@ void ProblemList::AddFunction(std::string problemName, Problem::Solution solFunc
 	pm->SetSolution(solFunc);
 
 	functionList[problemName] = solFunc;
+}
+
+std::string ProblemList::GetListName()
+{
+	return m_name;
 }
