@@ -26,7 +26,7 @@ bool ProblemManager::SolveAll()
 	if (!ValidateLists() || !ValidateLists())
 		return false;
 
-	std::cout << "Starting Solving " << inputs.size() << " Problem(s)" << std::endl;
+	std::cout << "Starting " << inputs.size() << " Test(s)" << std::endl;
 	for (int i = 0; i < inputs.size() && i < outputs.size(); i++) {
 		
 		showIndexAndTotal(i, inputs.size());

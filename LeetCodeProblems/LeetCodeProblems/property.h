@@ -16,14 +16,12 @@ private:
 template<typename T>
 class TypedProperty : public Property {
 public:
-    TypedProperty(const std::string& name, const T& data) : m_name(name), m_data(data) {};
+    TypedProperty( const T& data) :  m_data(data) {};
     T GetData();
     void SetData(T data);
     void SetDataByRef(T& data);
-    void SetDataByRef(std::string& name, T& data);
     bool Compare(TypedProperty tp);
 private:
-    std::string m_name;
     T m_data;
 };
 
@@ -44,13 +42,6 @@ template<typename T>
 inline void TypedProperty<T>::SetDataByRef(T& data)
 {
     data = this->m_data;
-}
-
-template<typename T>
-inline void TypedProperty<T>::SetDataByRef(std::string& name, T& data)
-{
-    data = this->m_data;
-    name = this->m_name;
 }
 
 template<typename T>

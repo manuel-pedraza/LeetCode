@@ -10,7 +10,7 @@ class Problem {
 
 public:
     typedef Information (*Solution)(Information);
-    Problem(std::string name, std::string description, Difficulty diff);
+    Problem(std::string name, std::string description, Difficulty diff, std::vector<std::string> inputNames, std::vector<std::string> outputNames);
     ~Problem();
     bool Solve(Information input, Information output);
     Solution ProbSolution = nullptr;
@@ -18,6 +18,8 @@ public:
     const std::string sName;
     const std::string sDescription;
     std::vector<Topics> topics;
+    std::vector<std::string> InputNames;
+    std::vector<std::string> OutputNames;
 
 };
 

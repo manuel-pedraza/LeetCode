@@ -94,15 +94,18 @@ Information twoSumWrapper(Information i) {
 	// Apply Desired function
 	std::vector<int> results = twoSum(vals, number);
 
+	
 	// Wrap result
-	Property* out = new TypedProperty<std::vector<int>>("output", results);
+	Property* out = new TypedProperty<std::vector<int>>(results);
 	Information output;
 	output.AddProperty(out);
+	showProblemInputs(std::vector<std::string>{ vectorToString<int>(vals), std::to_string(number)});
 
 	// Set Prop Comparator
-	output.PropComparator = [](Property* p1, Property* p2) {
-
+	output.PropComparator = [] (Property* p1, Property* p2) {
+		
 		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::vector<int>>(p1, p2);
+		showHasPassed(hasPassed);
 		showAssertionResult<int>(hasPassed, received, expected);
 		return hasPassed;
 	};
@@ -121,9 +124,10 @@ Information addTwoNumbersWrapper(Information i)
 	ListNode* results = addTwoNumbers(ln1, ln2);
 
 	// Wrap result
-	Property* out = new TypedProperty<ListNode*>("output", results);
+	Property* out = new TypedProperty<ListNode*>(results);
 	Information output;
 	output.AddProperty(out);
+	//showProblemInputs(std::vector<std::string>{ vectorToString<int>(vals), std::to_string(number)});
 
 	// Set Prop Comparator
 	output.PropComparator = [](Property* p1, Property* p2) {
@@ -162,34 +166,28 @@ ProblemManager twoSumInit() {
 	ProblemManager mTwoSum(Problem(
 		"Two Sum",
 		"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\r may assume that each input would have exactly one solution, and you may not use the same element twice.\n\rYou can return the answer in any order.",
-		Difficulty::Easy
+		Difficulty::Easy,
+		std::vector<std::string>{"values", "target"},
+		std::vector<std::string>{"arrayToValidate"}
 	));
 
 	mTwoSum.SetSolution(twoSumWrapper);
 
-	// Set Informations 
-	// Input
-	const std::string values = "values";
-	const std::string target = "values";
-
-	// Output
-	const std::string output = "arrayToValidate";
-
 	mTwoSum.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{
-			new TypedProperty<std::vector<int>>(values, { -11, 7, 3, 2, 1, 7, -10, 11, 21, 3 }), new TypedProperty<int>(target, 11)
+			new TypedProperty<std::vector<int>>({ -11, 7, 3, 2, 1, 7, -10, 11, 21, 3 }), new TypedProperty<int>(11)
 		}),
 
-			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(values, { 2,7,11,15 }), new TypedProperty<int>(target, 9) }),
-				Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(values, { 3,2,4 }), new TypedProperty<int>(target, 6) }),
-				Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(values, { 3,3 }), new TypedProperty<int>(target, 6) }),
+			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>({ 2,7,11,15 }), new TypedProperty<int>(9) }),
+				Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>({ 3,2,4 }), new TypedProperty<int>(6) }),
+				Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>({ 3,3 }), new TypedProperty<int>(6) }),
 	});
 
 	mTwoSum.SetOutputs(std::vector<Information> {
-		Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(output, { 6, 8 }) }),
-			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(output, { 0, 1 }) }),
-			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(output, { 1, 2 }) }),
-			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(output, { 0, 1 }) }),
+		Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>({ 6, 8 }) }),
+			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>({ 0, 1 }) }),
+			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>({ 1, 2 }) }),
+			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>({ 0, 1 }) }),
 	});
 
 	return mTwoSum;
@@ -199,37 +197,30 @@ ProblemManager addTwoNumbersInit()
 {
 	ProblemManager mAddTwoNumbers(Problem(
 		"Add Two Numbers", "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\n\rYou may assume the two numbers do not contain any leading zero, except the number 0 itself.",
-		Difficulty::Easy
+		Difficulty::Easy,
+		std::vector<std::string>{"listNode1", "listNode2"},
+		std::vector<std::string>{"listNodeRes"}
 	));
 
 	mAddTwoNumbers.SetSolution(addTwoNumbersWrapper);
 
-	// Set Informations 
-	// Input
-	const std::string listNode1 = "listNode1";
-	const std::string listNode2 = "listNode2";
-
-	// Output
-	const std::string output = "listNodeRes";
-
 	mAddTwoNumbers.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{
-			new TypedProperty<ListNode*>(listNode1, new ListNode(2, new ListNode(4, new ListNode(3)))),
-				new TypedProperty<ListNode*>(listNode2, new ListNode(5, new ListNode(6, new ListNode(4))))
+			new TypedProperty<ListNode*>(new ListNode(2, new ListNode(4, new ListNode(3)))),
+			new TypedProperty<ListNode*>(new ListNode(5, new ListNode(6, new ListNode(4))))
 		}),
 
-			Information(std::vector<Property*>{ new TypedProperty<ListNode*>(listNode1, new ListNode(0)), new TypedProperty<ListNode*>(listNode2, new ListNode(0))}),
-
-				Information(std::vector<Property*>{
-				new TypedProperty<ListNode*>(listNode1, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))))),
-					new TypedProperty<ListNode*>(listNode2, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))
-			}),
+		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(new ListNode(0)), new TypedProperty<ListNode*>(new ListNode(0))}),
+		Information(std::vector<Property*>{
+			new TypedProperty<ListNode*>(new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))))),
+			new TypedProperty<ListNode*>(new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))
+		}),
 	});
 
 	mAddTwoNumbers.SetOutputs(std::vector<Information> {
-		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(7, new ListNode(0, new ListNode(8)))) }),
-			Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(0)) }),
-			Information(std::vector<Property*>{ new TypedProperty<ListNode*>(output, new ListNode(8, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(0, new ListNode(0, new ListNode(0, new ListNode(1))))))))) }),
+		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(new ListNode(7, new ListNode(0, new ListNode(8)))) }),
+		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(new ListNode(0)) }),
+		Information(std::vector<Property*>{ new TypedProperty<ListNode*>(new ListNode(8, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(0, new ListNode(0, new ListNode(0, new ListNode(1))))))))) }),
 	});
 
 	return mAddTwoNumbers;

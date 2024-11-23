@@ -8,9 +8,9 @@
 
 class Information {
 
-	typedef bool (*Comparator)(Property*, Property*);
-
 public:
+
+	typedef bool (*Comparator) (Property*, Property*);
 	Information();
 	Information(property_list_type lstTmp);
 	Information(std::vector<Property*> lstTmp);

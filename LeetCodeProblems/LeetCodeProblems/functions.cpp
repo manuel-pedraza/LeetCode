@@ -13,17 +13,39 @@ bool isVowel(char letter)
 		|| letter == 'O' || letter == 'U';
 }
 
-void showAssertionResult(bool passed, std::string output, std::string expected)
+void showProblemInputs(std::vector<std::string> inputs)
 {
+	std::cout << " | Inputs: ";
+
+	int counter = 1;
+	for (std::string i : inputs) {
+		std::cout << i;
+		if (counter++ < inputs.size() )
+			std::cout << ", ";
+
+	}
+
+	std::cout << " |";
+
+}
+
+void showHasPassed(bool passed)
+{
+	std::cout << std::endl << "	Status:";
 	if (passed) {
-		std::cout << "\033[32m - PASSED" << std::endl;
+		std::cout << "\033[32m - PASSED -";
 	}
 	else {
-		std::cout << "\033[31m - FAILED" << std::endl;
+		std::cout << "\033[31m - FAILED -";
 	}
+}
+
+void showAssertionResult(bool passed, std::string output, std::string expected)
+{
+	std::cout << std::endl;
 	std::cout << "	\033[33mExpected: \033[37m";
-	std::cout << expected << "\033[37m | ";
-	std::cout << "\033[34mReceived: \033[37m";
+	std::cout << expected << "\033[37m" << std::endl;
+	std::cout << "	\033[34mReceived: \033[37m";
 	std::cout << output << std::endl;
 
 }
@@ -36,8 +58,6 @@ void showAssertionResult(bool passed, bool output, bool expected)
 
 	showAssertionResult(passed, out, exp);
 }
-
-
 
 
 void showAssertionIndexAndTotal(bool passed, int index, int total)
