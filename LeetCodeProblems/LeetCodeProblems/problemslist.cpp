@@ -9,7 +9,7 @@ ProblemList::ProblemList(std::string name) : m_name(name)
 
 ProblemList::~ProblemList()
 {
-	
+
 }
 
 bool ProblemList::Init()
@@ -25,7 +25,10 @@ bool ProblemList::Init()
 
 void ProblemList::SolveAll()
 {
-	for (auto pmTmp : list) {
+	for (ProblemManager pmTmp : list) {
+		showProblemInfos(&pmTmp);
+		const bool res = pmTmp.SolveAll();
+		showProblemResults(res);
 		pmTmp.SolveAll();
 	}
 }
@@ -37,14 +40,29 @@ void ProblemList::AddProblemManager(ProblemManager pm)
 
 bool ProblemList::SolveByName(std::string name)
 {
-	
-	for (auto pmTmp : list)
+
+	for (ProblemManager pmTmp : list)
 		if (pmTmp.GetProblemName() == name) {
-			std::cout << "Solving: " + name << " | Difficulty: ";
-			showProblemDifficulty(pmTmp.GetProblemDifficulty());
-			std::cout << "" << std::endl;
-			return pmTmp.SolveAll();
+			showProblemInfos(&pmTmp);
+			const bool res = pmTmp.SolveAll();
+			showProblemResults(res);
+			
+			return res;
 		}
+
+	return false;
+}
+
+bool ProblemList::SolveByIndex(int index)
+{
+	if (index < list.size()) {
+		ProblemManager pm = list[index];
+		showProblemInfos(&pm);
+		const bool res = pm.SolveAll();
+		showProblemResults(res);
+
+		return res;
+	}
 
 	return false;
 }
@@ -65,6 +83,16 @@ void ProblemList::AddFunction(std::string problemName, Problem::Solution solFunc
 	pm->SetSolution(solFunc);
 
 	functionList[problemName] = solFunc;
+}
+
+std::vector<std::string> ProblemList::GetAllProblemNames()
+{
+	std::vector<std::string> lstNames;
+
+	for (ProblemManager pm : list)
+		lstNames.push_back(pm.GetProblemName());
+
+	return lstNames;
 }
 
 std::string ProblemList::GetListName()

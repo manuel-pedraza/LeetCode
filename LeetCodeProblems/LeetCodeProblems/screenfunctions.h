@@ -5,12 +5,14 @@
 #include <sstream>
 #include "structs.h"
 #include "problemslist.h"
+#include "problemmanager.h"
 
 // Function List
 void ClearSreen();
 void showMainMenu();
-void showProblemManagerList();
-void showProblemResults();
+void showProblemManagerList(ProblemList* pl);
+void showProblemInfos(ProblemManager* pm);
+void showProblemResults(bool result);
 void showProblemInputs(std::vector<std::string> inputs);
 void showHasPassed(bool passed);
 void showAssertionResult(bool passed, std::string output, std::string expected);

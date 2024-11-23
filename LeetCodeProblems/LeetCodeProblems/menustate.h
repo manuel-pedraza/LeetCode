@@ -3,8 +3,8 @@
 
 enum class MenuState {
 	Main,
-	ProblemManager,
-	Problem
+	ProblemManager
+	//Problem
 };
 
 #endif // !MENUSTATE_H__

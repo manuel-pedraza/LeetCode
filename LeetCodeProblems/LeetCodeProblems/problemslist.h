@@ -15,7 +15,9 @@ public:
 	void SolveAll();
 	void AddProblemManager(ProblemManager pm);
 	bool SolveByName(std::string name);
+	bool SolveByIndex(int index);
 	void AddFunction(std::string problemName, Problem::Solution solFunc);
+	std::vector<std::string> GetAllProblemNames();
 	std::string GetListName();
 	static inline std::vector<ProblemList*> allLists;
 

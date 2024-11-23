@@ -20,22 +20,38 @@ void ClearSreen()
 
 void showMainMenu()
 {
-	std::cout << "Lists of problems:" << std::endl;
+	std::cout << "Lists:" << std::endl;
 	int counter = 1;
 	for (ProblemList* pl : ProblemList::allLists) {
 		std::cout << "	" << counter++ << ". " << pl->GetListName() << std::endl;
 	}
 
+	std::cout << "Choose a list number (Q to exit): ";
 }
 
-void showProblemManagerList()
+void showProblemManagerList(ProblemList* pl)
 {
+	std::cout << "Problems List:" << std::endl;
+	int counter = 1;
+
+	for (std::string name : pl->GetAllProblemNames()) {
+		std::cout << "	" << counter++ << ". " << name << std::endl;
+	}
+
+	std::cout << "Choose a problem to show\n\r(A to show all problems, Q to return): ";
 
 }
 
-void showProblemResults()
+void showProblemInfos(ProblemManager* pm)
 {
+	std::cout << "Solving: " + pm->GetProblemName() << " | Difficulty: ";
+	showProblemDifficulty(pm->GetProblemDifficulty());
+	std::cout << "" << std::endl;
+}
 
+void showProblemResults(bool result)
+{
+	std::cout << (result ? "All tests have \033[32mPASSED" : "One test has \033[31mFAILED") << "\033[37m" << std::endl;
 }
 
 void showProblemInputs(std::vector<std::string> inputs)

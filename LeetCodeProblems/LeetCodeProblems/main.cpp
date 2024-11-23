@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
+#include <stdlib.h>
 
 #include "highfrequencycompanylist.h"
 #include "blind75.h"
@@ -15,6 +16,10 @@ int main() {
 	InitializeBlind75List();
 
 	std::string userInput;
+	int number = -1;
+	ProblemList* pl = nullptr;
+	int listIndex = -1;
+	int problemIndex = -1;
 	MenuState ms = MenuState::Main;
 
 	std::cout << "\033[37m";
@@ -28,23 +33,58 @@ int main() {
 			showMainMenu();
 			break;
 		case MenuState::ProblemManager:
-			break;
-		case MenuState::Problem:
+			showProblemManagerList(ProblemList::allLists[listIndex]);
 			break;
 		default:
 			break;
 		}
 
+		number = -1;
 		std::getline(std::cin, userInput);
+
+		try
+		{
+			number = atoi(userInput.c_str());
+		}
+		catch (const std::exception& exception)
+		{
+			number = -1;
+		}
+
 		std::transform(userInput.begin(), userInput.end(), userInput.begin(), [](auto c) {return std::toupper(c); });
 
 		switch (ms)
 		{
 		case MenuState::Main:
+			if (userInput != "Q")
+				if (number - 1 < ProblemList::allLists.size()) {
+					listIndex = number - 1;
+					pl = ProblemList::allLists[listIndex];
+					ms = MenuState::ProblemManager;
+				}
 			break;
 		case MenuState::ProblemManager:
-			break;
-		case MenuState::Problem:
+			if (userInput == "Q") {
+				ms = MenuState::Main;
+				listIndex = -1;
+			}
+			else {
+				if (userInput == "A") {
+					pl->SolveAll();
+					std::cout << std::endl << "Press any key to continue";
+					std::cin.get();
+				}
+				else if (number - 1 < pl->GetAllProblemNames().size()) {
+					problemIndex = number - 1;
+					pl->SolveByIndex(problemIndex);
+					std::cout << std::endl << "Press any key to continue";
+					std::cin.get();
+				}
+
+				ClearSreen();
+			}
+
+			userInput = "";
 			break;
 		default:
 			break;
@@ -52,41 +92,4 @@ int main() {
 
 	} while (!(ms == MenuState::Main && userInput == "Q"));
 
-	std::cout << (highfreqlist.SolveByName("Two Sum") ? "PASSED" : "FAILED") << std::endl;
-	//std::cout << (highfreqlist.SolveByName("Add Two Numbers") ? "PASSED" : "FAILED") << std::endl;
-	std::cout <<
-		(blind75list.SolveByName("Merge Strings Alternately") ? "All tests have \033[34mPASSED"
-			: "One test has \033[31mFAILED")
-		<< "\033[37m" << std::endl;
-	std::cout <<
-		(blind75list.SolveByName("Greatest Common Divisor of Strings") ? "All tests have \033[34mPASSED"
-			: "One test has \033[31mFAILED")
-		<< "\033[37m" << std::endl;
-
-	std::cout <<
-		(blind75list.SolveByName("Kids With the Greatest Number of Candies") ? "All tests have \033[34mPASSED"
-			: "One test has \033[31mFAILED")
-		<< "\033[37m" << std::endl;
-
-	std::cout <<
-		(blind75list.SolveByName("Can Place Flowers") ? "All tests have \033[34mPASSED"
-			: "One test has \033[31mFAILED")
-		<< "\033[37m" << std::endl;
-
-	std::cout <<
-		(blind75list.SolveByName("Reverse Vowels of a String") ? "All tests have \033[34mPASSED"
-			: "One test has \033[31mFAILED")
-		<< "\033[37m" << std::endl;
-
-	std::cout <<
-		(blind75list.SolveByName("Reverse Words in a String") ? "All tests have \033[34mPASSED"
-			: "One test has \033[31mFAILED")
-		<< "\033[37m" << std::endl;
-
-	//p1.SetInputs(Information(std::vector<Property*>(pvalue1, pvalue2)));
-	//Information i1();
-
-	//Problem<std::vector<int>, std::vector<std::vector<int, int>> twoSum("hello", "there", twoSum);
-
-	//p1.SetName("Hello there");
 }
