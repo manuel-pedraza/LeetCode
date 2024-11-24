@@ -12,6 +12,7 @@ std::vector<bool> kidsWithTheGreatestNumberOfCandies(std::vector<int>& candies, 
 bool canPlaceFlowers(std::vector<int>& flowerbed, int flowersToBePlanted);
 std::string reverseVowelsOfString(std::string s);
 std::string reverseWordsInString(std::string s);
+std::vector<int> productOfArrayExceptSelf(std::vector<int>& nums);
 
 // Wrappers
 Information mergeAlternatelyWrapper(Information input);
@@ -20,6 +21,7 @@ Information kidsWithTheGreatestNumberOfCandiesWrapper(Information input);
 Information canPlaceFlowersWrapper(Information input);
 Information reverseVowelsOfStringWrapper(Information input);
 Information reverseWordsInStringWrapper(Information input);
+Information productOfArrayExceptSelfWrapper(Information input);
 
 // Inits
 ProblemManager mergeAlternatelyInit();
@@ -28,6 +30,7 @@ ProblemManager kidsWithTheGreatestNumberOfCandiesInit();
 ProblemManager canPlaceFlowersInit();
 ProblemManager reverseVowelsOfStringInit();
 ProblemManager reverseWordsInStringInit();
+ProblemManager productOfArrayExceptSelfInit();
 
 // Main Init
 void InitializeBlind75List();

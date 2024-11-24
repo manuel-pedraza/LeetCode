@@ -282,6 +282,64 @@ std::string reverseWordsInString(std::string s)
 	*/
 }
 
+std::vector<int> productOfArrayExceptSelf(std::vector<int>& nums)
+{
+	std::vector<int> newNums(nums.size(), 0);
+
+	int productOfAll = 1;
+	int numberOfZeros = 0;
+	int indexOfZero = -1;
+
+	for (size_t i = 0; i < nums.size(); i++) {
+		if (nums[i] == 0) {
+			numberOfZeros++;
+			indexOfZero = i;
+			if (numberOfZeros >= 2)
+				return newNums;
+		}
+		else
+			productOfAll *= nums[i];
+	}
+
+	if (numberOfZeros == 1 && indexOfZero != -1) {
+		newNums[indexOfZero] = productOfAll;
+	}
+	else
+		for (size_t i = 0; i < nums.size(); i++)
+			newNums[i] = productOfAll / nums[i];
+
+	return newNums;
+	/*
+	// Solution Without using division operator /
+	std::vector<int> newNums(nums.size(), 0);
+
+	int productOfAll = 1;
+	int numberOfZeros = 0;
+	int indexOfZero = -1;
+
+	for (size_t i = 0; i < nums.size(); i++) {
+		if (nums[i] == 0) {
+			numberOfZeros++;
+			indexOfZero = i;
+			if (numberOfZeros >= 2)
+				return newNums;
+		}
+		else
+			productOfAll *= nums[i];
+	}
+
+	if (numberOfZeros == 1 && indexOfZero != -1) {
+		newNums[indexOfZero] = productOfAll;
+	}
+	else
+		for (size_t i = 0; i < nums.size(); i++)
+			newNums[i] = productOfAll / nums[i];
+
+
+	return newNums;
+	*/
+}
+
 Information mergeAlternatelyWrapper(Information input)
 {
 	// Destruct true Informations
@@ -445,7 +503,34 @@ Information reverseWordsInStringWrapper(Information input)
 		showHasPassed(hasPassed);
 		showAssertionResult(hasPassed, received, expected);
 		return hasPassed;
-		
+
+	};
+
+	return output;
+}
+
+Information productOfArrayExceptSelfWrapper(Information input)
+{
+	// Destruct true Informations
+	std::vector<int> numbers = input.GetValueByPos<std::vector<int>>(0);
+
+	// Apply Desired function
+	std::vector<int> results = productOfArrayExceptSelf(numbers);
+
+	// Wrap result
+	Property* out = new TypedProperty<std::vector<int>>(results);
+	Information output;
+	output.AddProperty(out);
+	showProblemInputs(std::vector<std::string>{ vectorToString<int>(numbers)});
+
+	// Set Prop Comparator
+	output.PropComparator = [](Property* p1, Property* p2) {
+
+		auto [hasPassed, received, expected] = Information::GeneralPropComparator<std::vector<int>>(p1, p2);
+		showHasPassed(hasPassed);
+		showAssertionResult<int>(hasPassed, received, expected);
+		return hasPassed;
+
 	};
 
 	return output;
@@ -493,37 +578,37 @@ ProblemManager greatestCommonDivisorStringsInit()
 
 	mGreatestCommonDivisorStringsInit.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{new TypedProperty<std::string>("ADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBB"), new TypedProperty<std::string>("ADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBB")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), new TypedProperty<std::string>( "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("FBFKOXFBFKOXFBFKOXFBFKOXFBFKOX"), new TypedProperty<std::string>("FBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOX")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("ABABAB"), new TypedProperty<std::string>("ABA")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("ABCABC"), new TypedProperty<std::string>("ABC")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("ABABAB"), new TypedProperty<std::string>("ABAB")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("LEET"), new TypedProperty<std::string>("CODE")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("TAUXXTAUXXTAUXXTAUXXTAUXX"), new TypedProperty<std::string>("TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("ABCDEF"), new TypedProperty<std::string>("ABC")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("ABABABAB"), new TypedProperty<std::string>("ABAB")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("MANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAW"), new TypedProperty<std::string>("MANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAW")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("MNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNM"), new TypedProperty<std::string>("MNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNM")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), new TypedProperty<std::string>("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("AAAAAAAAA"), new TypedProperty<std::string>("AAACCC")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), new TypedProperty<std::string>("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("FBFKOXFBFKOXFBFKOXFBFKOXFBFKOX"), new TypedProperty<std::string>("FBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOXFBFKOX")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("ABABAB"), new TypedProperty<std::string>("ABA")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("ABCABC"), new TypedProperty<std::string>("ABC")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("ABABAB"), new TypedProperty<std::string>("ABAB")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("LEET"), new TypedProperty<std::string>("CODE")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("TAUXXTAUXXTAUXXTAUXXTAUXX"), new TypedProperty<std::string>("TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("ABCDEF"), new TypedProperty<std::string>("ABC")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("ABABABAB"), new TypedProperty<std::string>("ABAB")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("MANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAW"), new TypedProperty<std::string>("MANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAWMANSDOAW")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("MNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNM"), new TypedProperty<std::string>("MNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNMMNNWONOWNNM")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), new TypedProperty<std::string>("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("AAAAAAAAA"), new TypedProperty<std::string>("AAACCC")}),
 	});
 
-	mGreatestCommonDivisorStringsInit.SetOutputs(std::vector<Information> 
+	mGreatestCommonDivisorStringsInit.SetOutputs(std::vector<Information>
 	{
 		Information(std::vector<Property*>{ new TypedProperty<std::string>("ADADCCBBCBDCDDBABCBBADADCCBBCBDCDDBABCBB") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("FBFKOX") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("ABC") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("AB") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("TAUXX") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("ABAB") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("MANSDOAWMANSDOAW") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("MNNWONOWNNMMNNWONOWNNM") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("ABCDEFGHIJKLMNOPQRSTUVWXYZ") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("FBFKOX") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("ABC") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("AB") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("TAUXX") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("ABAB") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("MANSDOAWMANSDOAW") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("MNNWONOWNNMMNNWONOWNNM") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("ABCDEFGHIJKLMNOPQRSTUVWXYZ") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("") }),
 	});
 
 	return mGreatestCommonDivisorStringsInit;
@@ -543,8 +628,8 @@ ProblemManager kidsWithTheGreatestNumberOfCandiesInit()
 
 	mKidsWithTheGreatestNumberOfCandies.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{2, 3, 5, 1, 3}), new TypedProperty<int>(3)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{4, 2, 1, 1, 2}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{12, 1, 12}), new TypedProperty<int>(10)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{4, 2, 1, 1, 2}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{12, 1, 12}), new TypedProperty<int>(10)}),
 	});
 
 	mKidsWithTheGreatestNumberOfCandies.SetOutputs(std::vector<Information> {
@@ -570,17 +655,17 @@ ProblemManager canPlaceFlowersInit()
 
 	mCanPlaceFlowersInit.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 0, 0, 0}), new TypedProperty<int>(3)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 0}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 1, 0, 0}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0}), new TypedProperty<int>(2)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 0}), new TypedProperty<int>(2)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 0, 0, 1}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 0, 0, 1}), new TypedProperty<int>(2)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 1, 0, 1, 0, 1}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 1, 0, 1}), new TypedProperty<int>(1)}),
-		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 0, 0, 1, 0, 0}), new TypedProperty<int>(2)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 0}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 1, 0, 0}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0}), new TypedProperty<int>(2)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 0}), new TypedProperty<int>(2)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 0, 0, 1}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 0, 0, 1}), new TypedProperty<int>(2)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 1, 0, 1, 0, 1}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{0, 0, 1, 0, 1}), new TypedProperty<int>(1)}),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 0, 0, 0, 1, 0, 0}), new TypedProperty<int>(2)}),
 	});
 
 	mCanPlaceFlowersInit.SetOutputs(std::vector<Information> {
@@ -640,23 +725,48 @@ ProblemManager reverseWordsInStringInit()
 
 	mReverseWordsInStringInit.SetInputs(std::vector<Information> {
 		Information(std::vector<Property*>{new TypedProperty<std::string>("the sky is blue")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("  hello world  ")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("a good   example")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("EPY2giL")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>(" 3c      2zPeO dpIMVv2SG    1AM       o       VnUhxK a5YKNyuG     x9    EQ  ruJO       0Dtb8qG91w 1rT3zH F0m n G wU")}),
-		Information(std::vector<Property*>{new TypedProperty<std::string>("a")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("  hello world  ")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("a good   example")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("EPY2giL")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>(" 3c      2zPeO dpIMVv2SG    1AM       o       VnUhxK a5YKNyuG     x9    EQ  ruJO       0Dtb8qG91w 1rT3zH F0m n G wU")}),
+			Information(std::vector<Property*>{new TypedProperty<std::string>("a")}),
 	});
 
 	mReverseWordsInStringInit.SetOutputs(std::vector<Information> {
 		Information(std::vector<Property*>{ new TypedProperty<std::string>("blue is sky the") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("world hello") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("example good a") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("EPY2giL") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("wU G n F0m 1rT3zH 0Dtb8qG91w ruJO EQ x9 a5YKNyuG VnUhxK o 1AM dpIMVv2SG 2zPeO 3c") }),
-		Information(std::vector<Property*>{ new TypedProperty<std::string>("a") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("world hello") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("example good a") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("EPY2giL") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("wU G n F0m 1rT3zH 0Dtb8qG91w ruJO EQ x9 a5YKNyuG VnUhxK o 1AM dpIMVv2SG 2zPeO 3c") }),
+			Information(std::vector<Property*>{ new TypedProperty<std::string>("a") }),
 	});
 
 	return mReverseWordsInStringInit;
+}
+
+ProblemManager productOfArrayExceptSelfInit()
+{
+	ProblemManager mProductOfArrayExceptSelfInit(Problem(
+		"Product of Array Except Self",
+		"Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].The product of any prefix or suffix of nums is guaranteed to fit in a 32 - bit integer.	You must write an algorithm that runs in O(n) time and without using the division operation.",
+		Difficulty::Medium,
+		std::vector<std::string>{"Numbers"},
+		std::vector<std::string>{"Product numbers"}
+	));
+
+	mProductOfArrayExceptSelfInit.SetSolution(productOfArrayExceptSelfWrapper);
+
+	mProductOfArrayExceptSelfInit.SetInputs(std::vector<Information> {
+		Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{1, 2, 3, 4}) }),
+			Information(std::vector<Property*>{new TypedProperty<std::vector<int>>(std::vector<int>{-1, 1, 0, -3, 3}) }),
+	});
+
+	mProductOfArrayExceptSelfInit.SetOutputs(std::vector<Information> {
+		Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(std::vector<int>{24, 12, 8, 6}) }),
+			Information(std::vector<Property*>{ new TypedProperty<std::vector<int>>(std::vector<int>{ 0, 0, 9, 0, 0}) }),
+	});
+
+	return mProductOfArrayExceptSelfInit;
 }
 
 
@@ -672,4 +782,5 @@ void InitializeBlind75List()
 	blind75list.AddProblemManager(canPlaceFlowersInit());
 	blind75list.AddProblemManager(reverseVowelsOfStringInit());
 	blind75list.AddProblemManager(reverseWordsInStringInit());
+	blind75list.AddProblemManager(productOfArrayExceptSelfInit());
 }

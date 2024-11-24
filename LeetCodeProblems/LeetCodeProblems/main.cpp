@@ -15,6 +15,15 @@ int main() {
 	InitializeHighFreqList();
 	InitializeBlind75List();
 
+
+	// For tests porpuses
+	/*
+	ProblemList::allLists[ProblemList::allLists.size() - 1]
+		->SolveByIndex(ProblemList::allLists[ProblemList::allLists.size() - 1]->GetAllProblemNames().size() -1);
+	std::cout << std::endl << "Press any key to continue";
+	std::cin.get();
+	*/
+
 	std::string userInput;
 	int number = -1;
 	ProblemList* pl = nullptr;
@@ -67,6 +76,7 @@ int main() {
 			if (userInput == "Q") {
 				ms = MenuState::Main;
 				listIndex = -1;
+				pl = nullptr;
 			}
 			else {
 				if (userInput == "A") {
@@ -80,8 +90,6 @@ int main() {
 					std::cout << std::endl << "Press any key to continue";
 					std::cin.get();
 				}
-
-				ClearSreen();
 			}
 
 			userInput = "";
